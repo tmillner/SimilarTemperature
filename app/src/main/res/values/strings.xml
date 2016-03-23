@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SimilarTemperature</string>
+    <string name="action_settings">Settings</string>
+    <string name="main_actionable_string">Search Current Weather</string>
+    <string name="main_fahrenheit">°F</string>
+    <string name="main_celsius">°C</string>
+    <string name="main_recently_viewed">Recent Queries</string>
+</resources>
