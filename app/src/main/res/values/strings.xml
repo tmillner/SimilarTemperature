@@ -5,4 +5,12 @@
     <string name="main_fahrenheit">°F</string>
     <string name="main_celsius">°C</string>
     <string name="main_recently_viewed">Recent Queries</string>
+
+    <string name="preferences_first_time_key">"firstTime"</string>
+    <!-- OpenWeatherMap / https://home.openweathermap.org/ -->
+    <string name="preferences_weather_api_token_key">"weatherApiToken"</string>
+    <string name="preferences_weather_api_token_value">"196be975ac5aabec76a6f15989204e99"</string>
+    <string name="preferences_weather_temperature_unit_key">"temperatureUnit"</string>
+    <string name="preferences_weather_temperature_unit_value">"metric"</string>
+    <string name="title_activity_results">ResultsActivity</string>
 </resources>
