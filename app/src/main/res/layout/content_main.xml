@@ -38,8 +38,15 @@
             <AutoCompleteTextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="9"
+                android:layout_weight="10"
                 android:hint="zip code"/>
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:src="@drawable/go_button"
+                android:background="@android:color/darker_gray"/>
 
         </LinearLayout>
 
