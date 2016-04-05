@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.localhost.tmillner.similartemperature.helpers.Preferences;
+import com.localhost.tmillner.similartemperature.helpers.WeatherRequest;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,5 +54,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void getResults(View v) {
+        WeatherRequest.sendLocationDataRequest(this, "someCity", "someCountry");
     }
 }

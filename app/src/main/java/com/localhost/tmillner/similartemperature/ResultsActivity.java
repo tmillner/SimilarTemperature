@@ -14,9 +14,13 @@ import com.localhost.tmillner.similartemperature.db.WeatherContract;
 import com.localhost.tmillner.similartemperature.db.WeatherHelper;
 import com.localhost.tmillner.similartemperature.helpers.WeatherRequest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class ResultsActivity extends AppCompatActivity {
 
     private String degrees;
+    private JSONObject places = new JSONObject();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +38,8 @@ public class ResultsActivity extends AppCompatActivity {
             }
         });
         this.setDegrees();
-        this.populateMatchesList();
+        this.getLocations();
+        this.findLocationWeatherMatches();
     }
 
     public void setDegrees() {
@@ -42,7 +47,7 @@ public class ResultsActivity extends AppCompatActivity {
         this.degrees = intent.getStringExtra(WeatherRequest.WEATHER_CURRENT);
     }
 
-    public void populateMatchesList() {
+    public void getLocations() {
         // First query DB for locations above threshold
         SQLiteDatabase db = new WeatherHelper(this).getReadableDatabase();
         String[] projection = {
@@ -68,10 +73,50 @@ public class ResultsActivity extends AppCompatActivity {
 
         // Then query API for locations that match
         cursor.move(-1);
-        while(cursor.moveToNext()) {
-            String city = cursor.getString(cursor.getColumnIndex(WeatherContract.COLUMN_CITY));
-            String country = cursor.getString(cursor.getColumnIndex(WeatherContract.COLUMN_COUNTRY));
+        storeMatches(cursor);
+    }
 
+    /**
+     * Attempt storage of db matches in results as:
+     * {
+     *   "results": [{
+     *     "city" : "aCity",
+     *     "country" : "aCountry",
+     *     "population" : "aPopulation"
+     *   }]
+     * }
+     * @param cursor
+     */
+    private void storeMatches(Cursor cursor) {
+        JSONObject[] jsonObjects = {};
+        try {
+            places.put("results", jsonObjects);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        while(cursor.moveToNext()) {
+            JSONObject result = new JSONObject();
+            try {
+                result.put("city", cursor.getString(cursor.getColumnIndex(WeatherContract.COLUMN_CITY)));
+                result.put("country", cursor.getString(cursor.getColumnIndex(WeatherContract.COLUMN_COUNTRY)));
+                result.put("population", cursor.getString(cursor.getColumnIndex(WeatherContract.COLUMN_POPULATION)));
+                places.accumulate("results",result);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void findLocationWeatherMatches() {
+        try {
+            for (JSONObject result : (JSONObject[]) places.get("results")) {
+                WeatherRequest.getLocationDataRequest(this,
+                        (String) result.get("city"),
+                        (String) result.get("country"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 }

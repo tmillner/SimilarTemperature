@@ -46,7 +46,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:src="@drawable/go_button"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray"
+                android:onClick="getResults"/>
 
         </LinearLayout>
 
