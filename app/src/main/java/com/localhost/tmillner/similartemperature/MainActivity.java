@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         storeUserQuery(userInput);
         // TODO Allow google places to determine the input filled out locations
         // For now, just send a city
-        WeatherRequest.sendLocationDataRequest(this, userInput);
+        WeatherRequest.sendLocationDataRequest(this, "test");
     }
 
     private void storeUserQuery(String query) {

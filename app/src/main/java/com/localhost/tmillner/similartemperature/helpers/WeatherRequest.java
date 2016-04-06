@@ -52,7 +52,7 @@ public class WeatherRequest {
             public void onResponse(JSONObject response) {
                 /* TODO parse this out to get location data */
                 Intent intent = new Intent(context, ResultsActivity.class);
-                intent.putExtra(WEATHER_CURRENT, "16");
+                intent.putExtra(WEATHER_CURRENT, "38");
                 context.startActivity(intent);
             }
         }, new Response.ErrorListener() {
