@@ -36,6 +36,7 @@
             android:orientation="horizontal">
 
             <AutoCompleteTextView
+                android:id="@+id/userInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
@@ -93,6 +94,7 @@
             android:textSize="20dp"
             android:gravity="center_horizontal"/>
         <ListView
+            android:id="@+id/recently_viewed"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </ListView>

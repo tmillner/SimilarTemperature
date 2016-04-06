@@ -1,5 +1,6 @@
 package com.localhost.tmillner.similartemperature;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,11 +9,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.ListView;
 
 import com.localhost.tmillner.similartemperature.helpers.Preferences;
 import com.localhost.tmillner.similartemperature.helpers.WeatherRequest;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    private final static String TAG = MainActivity.class.getSimpleName();
+    private final static String STORAGE_FILE = String.format(
+            "com.localhost.tmillner.similartemperature.%s.RECENT_QUERIES", TAG);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +47,17 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        List<String> recentQueries = getUserQueries();
+        if (recentQueries.size() > 0) {
+            // Although we can reuse the same item layout of results, recently viewed can also
+            // utilize a timestamp -- just requires a new layout
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                    R.layout.content_weather_result_list_adapter, recentQueries);
+            ListView listView = (ListView) findViewById(R.id.recently_viewed);
+            listView.setAdapter(adapter);
+            // No need for on click listener
+        }
     }
 
     @Override
@@ -57,6 +83,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getResults(View v) {
-        WeatherRequest.sendLocationDataRequest(this, "someCity", "someCountry");
+        String userInput = ((AutoCompleteTextView) findViewById(R.id.userInput)).getText().toString();
+        storeUserQuery(userInput);
+        // TODO Allow google places to determine the input filled out locations
+        // For now, just send a city
+        WeatherRequest.sendLocationDataRequest(this, userInput);
+    }
+
+    private void storeUserQuery(String query) {
+        try {
+            FileOutputStream outputStream = openFileOutput(STORAGE_FILE, Context.MODE_PRIVATE);
+            outputStream.write(query.getBytes());
+            outputStream.close();
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<String> getUserQueries() {
+        // String[] recentQueries = {}; Arrays aren't grow-able, prefer using lists instead
+        ArrayList<String> recentQueries = new ArrayList<>();
+        try {
+            FileInputStream inputStream = openFileInput(STORAGE_FILE);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            while((line = bufferedReader.readLine()) != null) {
+                recentQueries.add(line);
+            }
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+        return recentQueries;
     }
 }

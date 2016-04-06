@@ -11,6 +11,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.localhost.tmillner.similartemperature.MainActivity;
+import com.localhost.tmillner.similartemperature.ResultsActivity;
+import com.localhost.tmillner.similartemperature.db.WeatherContract;
 
 import org.json.JSONObject;
 
@@ -19,6 +21,7 @@ import org.json.JSONObject;
  */
 public class WeatherRequest {
 
+    public final static String TAG = WeatherContract.class.getSimpleName();
     public final static String ERROR_MESSAGE = "com.localhost.tmillner.similartemperature.weather.ERROR";
     public final static String WEATHER_CURRENT = "com.localhost.tmillner.similartemperature.weather.WEATHER_CURRENT";
     private final static String API_DOMAIN = "http://api.openweathermap.org/";
@@ -48,7 +51,7 @@ public class WeatherRequest {
             @Override
             public void onResponse(JSONObject response) {
                 /* TODO parse this out to get location data */
-                Intent intent = new Intent(context, MainActivity.class);
+                Intent intent = new Intent(context, ResultsActivity.class);
                 intent.putExtra(WEATHER_CURRENT, "16");
                 context.startActivity(intent);
             }
@@ -67,20 +70,9 @@ public class WeatherRequest {
         sendLocationDataRequest(context, city, "");
     }
 
-    public static void getLocationDataRequest(final Context context, String city, String country){
-        queue.add(locationDataRequest(context, city, country, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                /* Option 1
-                 * Perform match + list logic here
-                 *
-                 * Option 2
-                 * Pass result back to the class, making it listen then perform match + list logic
-                 */
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {}
-        }));
+    public static void getLocationDataRequest(final Context context, String city, String country,
+                                              Response.Listener responseListener,
+                                              Response.ErrorListener errorListener){
+        queue.add(locationDataRequest(context, city, country, responseListener, errorListener));
     }
 }

@@ -1,15 +1,19 @@
 package com.localhost.tmillner.similartemperature;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.localhost.tmillner.similartemperature.db.WeatherContract;
 import com.localhost.tmillner.similartemperature.db.WeatherHelper;
 import com.localhost.tmillner.similartemperature.helpers.WeatherRequest;
@@ -17,17 +21,17 @@ import com.localhost.tmillner.similartemperature.helpers.WeatherRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ResultsActivity extends AppCompatActivity {
+public class ResultsActivity extends ListActivity{
 
-    private String degrees;
+    private final static String TAG = ResultsActivity.class.getSimpleName();
+    private Integer degrees;
     private JSONObject places = new JSONObject();
+    private JSONObject matches = new JSONObject();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -39,12 +43,20 @@ public class ResultsActivity extends AppCompatActivity {
         });
         this.setDegrees();
         this.getLocations();
-        this.findLocationWeatherMatches();
+        try {
+            this.findLocationWeatherMatches();
+        } catch(JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setDegrees() {
         Intent intent = getIntent();
-        this.degrees = intent.getStringExtra(WeatherRequest.WEATHER_CURRENT);
+        String degrees = intent.getStringExtra(WeatherRequest.WEATHER_CURRENT);
+        this.degrees = Integer.getInteger(degrees);
+
+        TextView degreesTextView = (TextView) findViewById(R.id.degrees);
+        degreesTextView.setText(String.format("°%s  ", degrees.toString()));
     }
 
     public void getLocations() {
@@ -108,15 +120,50 @@ public class ResultsActivity extends AppCompatActivity {
         }
     }
 
-    private void findLocationWeatherMatches() {
+    private void findLocationWeatherMatches() throws JSONException {
+        JSONObject[] jsonObjects = {};
+        matches.put("results", jsonObjects);
         try {
-            for (JSONObject result : (JSONObject[]) places.get("results")) {
+            for (final JSONObject result : (JSONObject[]) places.get("results")) {
                 WeatherRequest.getLocationDataRequest(this,
                         (String) result.get("city"),
-                        (String) result.get("country"));
+                        (String) result.get("country"),
+                                new Response.Listener() {
+                                    @Override
+                                    public void onResponse(Object response) {
+                                        // Add items to the local matchesJSON
+                                        /* Parse response and retrieve the number */
+                                        Integer responseDegrees = 39;
+                                        if (responseDegrees == degrees) {
+                                            JSONObject matchingObject = new JSONObject();
+                                            try {
+                                                matchingObject.put("city", result.get("city"));
+                                                matchingObject.put("country", result.get("country"));
+                                                matches.accumulate("results", matchingObject);
+
+                                                setListAdapter(new WeatherResultListAdapter(
+                                                        ResultsActivity.this, R.layout.content_weather_result_list_adapter,
+                                                        (JSONObject[]) matches.get("results")
+                                                ));
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        Log.w(TAG, "Something Bad happened! " + error);
+                                    }
+                                });
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id)  {
+
     }
 }
