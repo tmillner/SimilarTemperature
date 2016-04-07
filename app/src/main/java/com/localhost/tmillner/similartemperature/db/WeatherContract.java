@@ -8,7 +8,7 @@ public class WeatherContract {
     public WeatherContract() {
     }
 
-    public static final int SCHEMA_REVISION = 0;
+    public static final int SCHEMA_REVISION = 1;
     public static final String TABLE = "weather";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_CITY = "city";
@@ -17,11 +17,11 @@ public class WeatherContract {
     public static final String COLUMN_DATE_POPULATION_NOTED = "date_population_noted";
 
     public static final String CREATE_TABLE = "CREATE TABLE " + TABLE + "(" +
-            COLUMN_ID + "integer primary key, " +
-            COLUMN_CITY + "varchar(200), " +
-            COLUMN_COUNTRY + "varchar(150), " +
-            COLUMN_POPULATION + "long, " +
-            COLUMN_DATE_POPULATION_NOTED + "integer" +
+            COLUMN_ID + " integer primary key, " +
+            COLUMN_CITY + " varchar(200), " +
+            COLUMN_COUNTRY + " varchar(150), " +
+            COLUMN_POPULATION + " long, " +
+            COLUMN_DATE_POPULATION_NOTED + " integer" +
             ")";
 
     public static final String ADD_SAMPLE_DATA = "INSERT INTO " + TABLE + "(" +
@@ -29,8 +29,8 @@ public class WeatherContract {
             COLUMN_COUNTRY + ", " +
             COLUMN_POPULATION + ", " +
             COLUMN_DATE_POPULATION_NOTED + ")" + "VALUES" +
-            "(seattle,us,300000,2015)," +
-            "(austin,us,200000,2012)," +
-            "(chicago,us,400000,2010)," +
-            "(chinautla,guatemala,75000,null),";
+            "('seattle','us',300000,2015)," +
+            "('austin','us',200000,2012)," +
+            "('chicago','us',400000,2010)," +
+            "('chinautla','guatemala',75000,1999)";
 }

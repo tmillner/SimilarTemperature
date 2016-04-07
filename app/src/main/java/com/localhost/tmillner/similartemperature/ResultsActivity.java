@@ -1,12 +1,12 @@
 package com.localhost.tmillner.similartemperature;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
@@ -21,12 +21,13 @@ import com.localhost.tmillner.similartemperature.helpers.WeatherRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ResultsActivity extends ListActivity{
+public class ResultsActivity extends AppCompatActivity {
 
     private final static String TAG = ResultsActivity.class.getSimpleName();
     private Integer degrees;
     private JSONObject places = new JSONObject();
     private JSONObject matches = new JSONObject();
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class ResultsActivity extends ListActivity{
                         .setAction("Action", null).show();
             }
         });
+        this.setListView();
         this.setDegrees();
         this.getLocations();
         try {
@@ -48,6 +50,10 @@ public class ResultsActivity extends ListActivity{
         } catch(JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setListView() {
+        listView = (ListView) findViewById(R.id.results);
     }
 
     public void setDegrees() {
@@ -133,7 +139,8 @@ public class ResultsActivity extends ListActivity{
                                     public void onResponse(Object response) {
                                         // Add items to the local matchesJSON
                                         /* Parse response and retrieve the number */
-                                        Integer responseDegrees = 39;
+                                        Log.i(TAG, "Response is: " + response);
+                                        Integer responseDegrees = 38;
                                         if (responseDegrees == degrees) {
                                             JSONObject matchingObject = new JSONObject();
                                             try {
@@ -141,8 +148,9 @@ public class ResultsActivity extends ListActivity{
                                                 matchingObject.put("country", result.get("country"));
                                                 matches.accumulate("results", matchingObject);
 
-                                                setListAdapter(new WeatherResultListAdapter(
-                                                        ResultsActivity.this, R.layout.content_weather_result_list_adapter,
+                                                listView.setAdapter(new WeatherResultListAdapter(
+                                                        getApplicationContext(),
+                                                        R.layout.content_weather_result_list_adapter,
                                                         (JSONObject[]) matches.get("results")
                                                 ));
                                             } catch (JSONException e) {
@@ -160,10 +168,5 @@ public class ResultsActivity extends ListActivity{
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id)  {
-
     }
 }

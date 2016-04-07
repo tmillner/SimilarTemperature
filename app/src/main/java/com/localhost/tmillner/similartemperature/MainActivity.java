@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             // Although we can reuse the same item layout of results, recently viewed can also
             // utilize a timestamp -- just requires a new layout
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                    R.layout.content_weather_result_list_adapter, recentQueries);
+                    R.layout.content_weather_result_list_adapter, R.id.result_city, recentQueries);
             ListView listView = (ListView) findViewById(R.id.recently_viewed);
             listView.setAdapter(adapter);
             // No need for on click listener
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
     public void getResults(View v) {
         String userInput = ((AutoCompleteTextView) findViewById(R.id.userInput)).getText().toString();
         storeUserQuery(userInput);
+        Log.d(TAG, userInput);
         // TODO Allow google places to determine the input filled out locations
         // For now, just send a city
         WeatherRequest.sendLocationDataRequest(this, "test");
