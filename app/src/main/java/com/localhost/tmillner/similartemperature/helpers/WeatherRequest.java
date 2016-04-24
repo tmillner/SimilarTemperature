@@ -67,7 +67,7 @@ public class WeatherRequest {
     }
 
     public static void sendLocationDataRequest(final Context context, String city) {
-        sendLocationDataRequest(context, city, "");
+        sendLocationDataRequest(context, "seattle", "");
     }
 
     public static void getLocationDataRequest(final Context context, String city, String country,

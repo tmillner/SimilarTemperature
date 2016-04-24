@@ -45,18 +45,22 @@
                 android:gravity="center_horizontal"/>
 
             <Button
+                android:id="@+id/fahrenheit_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="@string/main_fahrenheit"/>
+                android:text="@string/main_fahrenheit"
+                android:onClick="convertToFahrenheit"/>
             <Button
+                android:id="@+id/celsius_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="@string/main_celsius"/>
+                android:text="@string/main_celsius"
+                android:onClick="convertToCelsius"
+                />
 
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_marginTop="20dp"
@@ -67,7 +71,8 @@
             <ListView
                 android:id="@+id/results"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                style="@style/AppTheme.ListView">
             </ListView>
 
         </LinearLayout>

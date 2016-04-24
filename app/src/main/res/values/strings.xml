@@ -15,9 +15,13 @@
     <string name="preferences_weather_temperature_unit_key">"temperatureUnit"</string>
     <string name="preferences_weather_temperature_unit_value">"metric"</string>
     <string name="preferences_weather_city_min_population_key">"CityMinPopulation"</string>
-    <string name="preferences_weather_city_min_population_value">"400000"</string>
+    <string name="preferences_weather_city_min_population_value">100000</string>
 
     <string name="title_activity_results">ResultsActivity</string>
     <string name="results_heading_string">Places that are also ...</string>
     <string name="title_activity_weather_result_list_adapter">WeatherResultListAdapter</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

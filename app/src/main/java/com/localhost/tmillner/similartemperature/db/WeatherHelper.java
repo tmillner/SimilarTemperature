@@ -21,7 +21,6 @@ public class WeatherHelper extends SQLiteOpenHelper {
         db.execSQL(WeatherContract.CREATE_TABLE);
         // For previewing, populate w/some data
         db.execSQL(WeatherContract.ADD_SAMPLE_DATA);
-
     }
 
     @Override

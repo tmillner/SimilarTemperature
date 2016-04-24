@@ -29,8 +29,8 @@ public class WeatherContract {
             COLUMN_COUNTRY + ", " +
             COLUMN_POPULATION + ", " +
             COLUMN_DATE_POPULATION_NOTED + ")" + "VALUES" +
-            "('seattle','us',300000,2015)," +
-            "('austin','us',200000,2012)," +
-            "('chicago','us',400000,2010)," +
+            "('seattle','us',500000,2015)," +
+            "('austin','us',600000,2012)," +
+            "('chicago','us',700000,2010)," +
             "('chinautla','guatemala',75000,1999)";
 }

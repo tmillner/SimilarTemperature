@@ -17,4 +17,9 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AppTheme.ListView" parent="AppTheme">
+        <item name="android:background">@color/colorLightGrey</item>
+    </style>
+
+
 </resources>

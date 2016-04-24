@@ -15,13 +15,17 @@
     <TextView
         android:id="@+id/result_city"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
+        android:textSize="18dp"
+        android:textColor="@color/colorPrimaryDark"
         android:hint="my city"/>
 
     <TextView
         android:id="@+id/result_country"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18dp"
         android:hint="my country"
         android:layout_marginLeft="50pt" />
 

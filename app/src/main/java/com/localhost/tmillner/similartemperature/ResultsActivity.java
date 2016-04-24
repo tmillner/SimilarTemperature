@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,15 +17,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.localhost.tmillner.similartemperature.db.WeatherContract;
 import com.localhost.tmillner.similartemperature.db.WeatherHelper;
+import com.localhost.tmillner.similartemperature.helpers.ConversionHelper;
 import com.localhost.tmillner.similartemperature.helpers.WeatherRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ResultsActivity extends AppCompatActivity {
 
     private final static String TAG = ResultsActivity.class.getSimpleName();
-    private Integer degrees;
+    private Double degrees;
     private JSONObject places = new JSONObject();
     private JSONObject matches = new JSONObject();
     private ListView listView;
@@ -42,8 +45,9 @@ public class ResultsActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        this.setListView();
         this.setDegrees();
+        this.setListView();
+        Log.w(TAG, "~~~I'm a bad liar");
         this.getLocations();
         try {
             this.findLocationWeatherMatches();
@@ -59,10 +63,10 @@ public class ResultsActivity extends AppCompatActivity {
     public void setDegrees() {
         Intent intent = getIntent();
         String degrees = intent.getStringExtra(WeatherRequest.WEATHER_CURRENT);
-        this.degrees = Integer.getInteger(degrees);
+        this.degrees = Double.parseDouble(degrees);
 
         TextView degreesTextView = (TextView) findViewById(R.id.degrees);
-        degreesTextView.setText(String.format("°%s  ", degrees.toString()));
+        degreesTextView.setText(String.format("°%s  ", degrees));
     }
 
     public void getLocations() {
@@ -91,6 +95,7 @@ public class ResultsActivity extends AppCompatActivity {
 
         // Then query API for locations that match
         cursor.move(-1);
+        Log.w(TAG, "~~~getLocations - Done");
         storeMatches(cursor);
     }
 
@@ -106,19 +111,22 @@ public class ResultsActivity extends AppCompatActivity {
      * @param cursor
      */
     private void storeMatches(Cursor cursor) {
-        JSONObject[] jsonObjects = {};
         try {
-            places.put("results", jsonObjects);
+            places.put("results", new JSONArray());
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         while(cursor.moveToNext()) {
+            Log.w(TAG, "~~~storeMatches - Hit a match");
             JSONObject result = new JSONObject();
             try {
-                result.put("city", cursor.getString(cursor.getColumnIndex(WeatherContract.COLUMN_CITY)));
-                result.put("country", cursor.getString(cursor.getColumnIndex(WeatherContract.COLUMN_COUNTRY)));
-                result.put("population", cursor.getString(cursor.getColumnIndex(WeatherContract.COLUMN_POPULATION)));
+                result.put("city", cursor.getString(cursor.
+                        getColumnIndex(WeatherContract.COLUMN_CITY)));
+                result.put("country", cursor.getString(cursor.
+                        getColumnIndex(WeatherContract.COLUMN_COUNTRY)));
+                result.put("population", cursor.getString(cursor.
+                        getColumnIndex(WeatherContract.COLUMN_POPULATION)));
                 places.accumulate("results",result);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -127,10 +135,12 @@ public class ResultsActivity extends AppCompatActivity {
     }
 
     private void findLocationWeatherMatches() throws JSONException {
-        JSONObject[] jsonObjects = {};
-        matches.put("results", jsonObjects);
+        matches.put("results", new JSONArray());
+        final Double degrees = this.degrees;
         try {
-            for (final JSONObject result : (JSONObject[]) places.get("results")) {
+            for (int i = 0; i < ((JSONArray) places.get("results")).length(); i++) {
+                final JSONObject result = (JSONObject) ((JSONArray) places.get("results")).get(i);
+                Log.w(TAG, "~~~A Result is " + result.toString());
                 WeatherRequest.getLocationDataRequest(this,
                         (String) result.get("city"),
                         (String) result.get("country"),
@@ -139,9 +149,11 @@ public class ResultsActivity extends AppCompatActivity {
                                     public void onResponse(Object response) {
                                         // Add items to the local matchesJSON
                                         /* Parse response and retrieve the number */
+                                        Log.w(TAG, "~~~A resonse is " + response.toString());
                                         Log.i(TAG, "Response is: " + response);
-                                        Integer responseDegrees = 38;
-                                        if (responseDegrees == degrees) {
+                                        Double responseDegrees = 38d;
+                                        if (responseDegrees.equals(degrees)) {
+                                            Log.i(TAG, "IM IN!!");
                                             JSONObject matchingObject = new JSONObject();
                                             try {
                                                 matchingObject.put("city", result.get("city"));
@@ -151,7 +163,8 @@ public class ResultsActivity extends AppCompatActivity {
                                                 listView.setAdapter(new WeatherResultListAdapter(
                                                         getApplicationContext(),
                                                         R.layout.content_weather_result_list_adapter,
-                                                        (JSONObject[]) matches.get("results")
+                                                        convertJSONArrayToJSONObjectArray(
+                                                                (JSONArray) matches.get("results"))
                                                 ));
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
@@ -168,5 +181,35 @@ public class ResultsActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private JSONObject[] convertJSONArrayToJSONObjectArray(JSONArray jsonArray) {
+        JSONObject[] jsonObjectArray = new JSONObject[jsonArray.length()];
+        for (int i = 0; i < jsonArray.length(); i++) {
+            try {
+                jsonObjectArray[i] = (JSONObject) jsonArray.get(i);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return jsonObjectArray;
+    }
+
+    public void convertToFahrenheit(View source) {
+        TextView degreesView = (TextView) findViewById(R.id.degrees);
+        degreesView.setText("" + ConversionHelper.celsiusToFahrenheit(degrees));
+        Button fahrenheitButton = (Button) findViewById(R.id.fahrenheit_button);
+        fahrenheitButton.setEnabled(false);
+        Button celsiusButton = (Button) findViewById(R.id.celsius_button);
+        celsiusButton.setEnabled(true);
+    }
+
+    public void convertToCelsius(View source) {
+        TextView degreesView = (TextView) findViewById(R.id.degrees);
+        degreesView.setText("" + ConversionHelper.fahrenheitToCelsius(degrees));
+        Button celsiusButton = (Button) findViewById(R.id.celsius_button);
+        celsiusButton.setEnabled(false);
+        Button fahrenheitButton = (Button) findViewById(R.id.fahrenheit_button);
+        fahrenheitButton.setEnabled(true);
     }
 }

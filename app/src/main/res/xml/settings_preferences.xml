@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Category 1">
+        <!-- keys are also associated in the SettingsActivity file -->
+        <CheckBoxPreference android:key="temperature_metric"
+            android:title="Your preference for temperature"
+            android:summary="Celsius or Fahrenheit?">
+        </CheckBoxPreference>
+    </PreferenceCategory>
+
+</PreferenceScreen>

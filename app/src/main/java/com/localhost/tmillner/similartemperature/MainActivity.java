@@ -1,7 +1,10 @@
 package com.localhost.tmillner.similartemperature;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -48,17 +51,17 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        showRecentQueries();
+    }
 
-        List<String> recentQueries = getUserQueries();
-        if (recentQueries.size() > 0) {
-            // Although we can reuse the same item layout of results, recently viewed can also
-            // utilize a timestamp -- just requires a new layout
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                    R.layout.content_weather_result_list_adapter, R.id.result_city, recentQueries);
-            ListView listView = (ListView) findViewById(R.id.recently_viewed);
-            listView.setAdapter(adapter);
-            // No need for on click listener
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showRecentQueries();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String temperatureMetric = sharedPreferences.getString(
+                SettingsActivity.TEMPERATURE_METRIC, "Fahrenheit");
+        Log.i(TAG, "Metric is " + temperatureMetric);
     }
 
     @Override
@@ -77,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            startActivity(new Intent(this,SettingsActivity.class ));
         }
 
         return super.onOptionsItemSelected(item);
@@ -94,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void storeUserQuery(String query) {
         try {
-            FileOutputStream outputStream = openFileOutput(STORAGE_FILE, Context.MODE_PRIVATE);
-            outputStream.write(query.getBytes());
+            FileOutputStream outputStream = openFileOutput(STORAGE_FILE, Context.MODE_APPEND);
+            outputStream.write((query + "\n").getBytes());
             outputStream.close();
         } catch (java.io.IOException e) {
             e.printStackTrace();
@@ -116,5 +119,19 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return recentQueries;
+    }
+
+    private void showRecentQueries() {
+        List<String> recentQueries = getUserQueries();
+        Log.i(TAG, recentQueries.toString());
+        if (recentQueries.size() > 0) {
+            // Although we can reuse the same item layout of results, recently viewed can also
+            // utilize a timestamp -- just requires a new layout
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                    R.layout.content_weather_result_list_adapter, R.id.result_city, recentQueries);
+            ListView listView = (ListView) findViewById(R.id.recently_viewed);
+            listView.setAdapter(adapter);
+            // No need for on click listener
+        }
     }
 }

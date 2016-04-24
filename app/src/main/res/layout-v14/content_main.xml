@@ -97,7 +97,7 @@
                 android:id="@+id/recently_viewed"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                style="@style/AppTheme.ListView">
+                style="@android:style/TextAppearance.DeviceDefault.Inverse">
             </ListView>
 
         </LinearLayout>
