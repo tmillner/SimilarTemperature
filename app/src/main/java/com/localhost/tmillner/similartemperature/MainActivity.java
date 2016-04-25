@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,6 +15,13 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.location.places.AutocompletePredictionBuffer;
+import com.google.android.gms.location.places.Places;
 import com.localhost.tmillner.similartemperature.helpers.Preferences;
 import com.localhost.tmillner.similartemperature.helpers.WeatherRequest;
 
@@ -27,7 +32,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnConnectionFailedListener{
 
     private final static String TAG = MainActivity.class.getSimpleName();
     private final static String STORAGE_FILE = String.format(
@@ -40,17 +45,14 @@ public class MainActivity extends AppCompatActivity {
             Preferences.initialize(this);
         }
         setContentView(R.layout.activity_main);
+        GoogleApiClient apiClient = new GoogleApiClient.Builder(this)
+                .addApi(Places.GEO_DATA_API)
+                .build();
+        PendingResult<AutocompletePredictionBuffer> result =
+                Places.GeoDataApi.getAutocompletePredictions(apiClient, "Tes", null, null);
+        Log.d(TAG, result.toString());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         showRecentQueries();
     }
 
@@ -134,4 +136,10 @@ public class MainActivity extends AppCompatActivity {
             // No need for on click listener
         }
     }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        return;
+    }
+
 }

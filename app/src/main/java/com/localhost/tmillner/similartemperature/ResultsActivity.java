@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -19,6 +19,7 @@ import com.localhost.tmillner.similartemperature.db.WeatherContract;
 import com.localhost.tmillner.similartemperature.db.WeatherHelper;
 import com.localhost.tmillner.similartemperature.helpers.ConversionHelper;
 import com.localhost.tmillner.similartemperature.helpers.WeatherRequest;
+import com.localhost.tmillner.similartemperature.helpers.WeatherResponseDecoder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,24 +37,42 @@ public class ResultsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         this.setDegrees();
         this.setListView();
-        Log.w(TAG, "~~~I'm a bad liar");
         this.getLocations();
         try {
             this.findLocationWeatherMatches();
         } catch(JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            startActivity(new Intent(this,SettingsActivity.class ));
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void setListView() {
@@ -95,7 +114,6 @@ public class ResultsActivity extends AppCompatActivity {
 
         // Then query API for locations that match
         cursor.move(-1);
-        Log.w(TAG, "~~~getLocations - Done");
         storeMatches(cursor);
     }
 
@@ -118,7 +136,7 @@ public class ResultsActivity extends AppCompatActivity {
         }
 
         while(cursor.moveToNext()) {
-            Log.w(TAG, "~~~storeMatches - Hit a match");
+            Log.d(TAG, "~~~storeMatches - Hit a match");
             JSONObject result = new JSONObject();
             try {
                 result.put("city", cursor.getString(cursor.
@@ -140,7 +158,7 @@ public class ResultsActivity extends AppCompatActivity {
         try {
             for (int i = 0; i < ((JSONArray) places.get("results")).length(); i++) {
                 final JSONObject result = (JSONObject) ((JSONArray) places.get("results")).get(i);
-                Log.w(TAG, "~~~A Result is " + result.toString());
+                Log.d(TAG, "~~~A Result is " + result.toString());
                 WeatherRequest.getLocationDataRequest(this,
                         (String) result.get("city"),
                         (String) result.get("country"),
@@ -149,11 +167,11 @@ public class ResultsActivity extends AppCompatActivity {
                                     public void onResponse(Object response) {
                                         // Add items to the local matchesJSON
                                         /* Parse response and retrieve the number */
-                                        Log.w(TAG, "~~~A resonse is " + response.toString());
-                                        Log.i(TAG, "Response is: " + response);
+                                        Log.d(TAG, "~~~A resonse is " + response);
+                                        Log.d(TAG, "Weather is " + WeatherResponseDecoder.getWeather((JSONObject) response));
+                                        Log.d(TAG, "Temp is " + WeatherResponseDecoder.getTemperature((JSONObject) response));
                                         Double responseDegrees = 38d;
                                         if (responseDegrees.equals(degrees)) {
-                                            Log.i(TAG, "IM IN!!");
                                             JSONObject matchingObject = new JSONObject();
                                             try {
                                                 matchingObject.put("city", result.get("city"));
