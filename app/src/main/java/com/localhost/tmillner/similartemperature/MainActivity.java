@@ -8,12 +8,15 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -32,11 +35,13 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements OnConnectionFailedListener{
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks {
 
     private final static String TAG = MainActivity.class.getSimpleName();
     private final static String STORAGE_FILE = String.format(
             "com.localhost.tmillner.similartemperature.%s.RECENT_QUERIES", TAG);
+    private AutocompleteAdapter acTextViewAdapter= null;
+    private GoogleApiClient googleApiClient = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +50,16 @@ public class MainActivity extends AppCompatActivity implements OnConnectionFaile
             Preferences.initialize(this);
         }
         setContentView(R.layout.activity_main);
-        GoogleApiClient apiClient = new GoogleApiClient.Builder(this)
+        googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Places.GEO_DATA_API)
                 .build();
-        PendingResult<AutocompletePredictionBuffer> result =
-                Places.GeoDataApi.getAutocompletePredictions(apiClient, "Tes", null, null);
-        Log.d(TAG, result.toString());
+
+        AutoCompleteTextView acTextView = (AutoCompleteTextView) findViewById(R.id.userInput);
+        acTextViewAdapter = new AutocompleteAdapter(
+                this, android.R.layout.simple_dropdown_item_1line);
+        acTextView.setAdapter(acTextViewAdapter);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         showRecentQueries();
@@ -64,6 +73,15 @@ public class MainActivity extends AppCompatActivity implements OnConnectionFaile
         String temperatureMetric = sharedPreferences.getString(
                 SettingsActivity.TEMPERATURE_METRIC, "Fahrenheit");
         Log.i(TAG, "Metric is " + temperatureMetric);
+    }
+
+    @Override
+    protected void onStop() {
+        if (googleApiClient.isConnected() && googleApiClient != null) {
+            acTextViewAdapter.setGoogleApiClient(null);
+            googleApiClient.disconnect();
+        }
+        super.onStop();
     }
 
     @Override
@@ -118,15 +136,15 @@ public class MainActivity extends AppCompatActivity implements OnConnectionFaile
                 recentQueries.add(line);
             }
         } catch (java.io.IOException e) {
-            e.printStackTrace();
+            Log.i(TAG, STORAGE_FILE + " does not exist yet! Moving along.");
         }
         return recentQueries;
     }
 
     private void showRecentQueries() {
         List<String> recentQueries = getUserQueries();
-        Log.i(TAG, recentQueries.toString());
         if (recentQueries.size() > 0) {
+            Log.i(TAG, recentQueries.toString());
             // Although we can reuse the same item layout of results, recently viewed can also
             // utilize a timestamp -- just requires a new layout
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
@@ -138,8 +156,15 @@ public class MainActivity extends AppCompatActivity implements OnConnectionFaile
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        return;
+    public void onConnected(Bundle bundle) {
+
+        if (acTextViewAdapter != null) {
+            acTextViewAdapter.setGoogleApiClient(googleApiClient);
+        }
     }
 
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
 }

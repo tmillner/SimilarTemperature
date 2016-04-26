@@ -37,6 +37,7 @@ public class ResultsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
+        // getActionBar().setDisplayHomeAsUpEnabled(true);
         this.setDegrees();
         this.setListView();
         this.getLocations();
