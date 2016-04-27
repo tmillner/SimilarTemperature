@@ -53,10 +53,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Places.GEO_DATA_API)
                 .build();
+        googleApiClient.connect();
+        Log.i(TAG, "Is connected " + googleApiClient.isConnected());
 
         AutoCompleteTextView acTextView = (AutoCompleteTextView) findViewById(R.id.userInput);
         acTextViewAdapter = new AutocompleteAdapter(
                 this, android.R.layout.simple_dropdown_item_1line);
+        acTextViewAdapter.setGoogleApiClient(googleApiClient);
         acTextView.setAdapter(acTextViewAdapter);
 
 
@@ -64,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         setSupportActionBar(toolbar);
         showRecentQueries();
     }
+
 
     @Override
     protected void onResume() {
