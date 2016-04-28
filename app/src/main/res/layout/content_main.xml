@@ -58,12 +58,34 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/main_recently_viewed"
-                android:textSize="20dp"
-                android:gravity="center_horizontal"/>
+
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_gravity="center"
+               android:layout_marginBottom="10dp">
+
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="@string/main_recently_viewed"
+                   android:textSize="20dp"
+                   android:gravity="center_vertical"
+                   android:layout_gravity="center_vertical"/>
+
+               <ImageButton
+                   android:id="@+id/close_button"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="10dp"
+                   android:layout_weight="3"
+                   android:src="@drawable/x_close"
+                   android:background="@android:color/darker_gray"
+                   android:onClick="clearRecentQueries"/>
+
+           </LinearLayout>
+
             <ListView
                 android:id="@+id/recently_viewed"
                 android:layout_width="match_parent"

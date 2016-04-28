@@ -8,22 +8,16 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.location.places.AutocompletePredictionBuffer;
 import com.google.android.gms.location.places.Places;
 import com.localhost.tmillner.similartemperature.helpers.Preferences;
 import com.localhost.tmillner.similartemperature.helpers.WeatherRequest;
@@ -52,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         setContentView(R.layout.activity_main);
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
                 .build();
         googleApiClient.connect();
         Log.i(TAG, "Is connected " + googleApiClient.isConnected());
@@ -147,16 +142,29 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     private void showRecentQueries() {
         List<String> recentQueries = getUserQueries();
+        Log.i(TAG, recentQueries.toString());
+        // Although we can reuse the same item layout of results, recently viewed can also
+        // utilize a timestamp -- just requires a new layout
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                R.layout.content_weather_result_list_adapter, R.id.result_city, recentQueries);
+        ListView listView = (ListView) findViewById(R.id.recently_viewed);
+        listView.setAdapter(adapter);
+
         if (recentQueries.size() > 0) {
-            Log.i(TAG, recentQueries.toString());
-            // Although we can reuse the same item layout of results, recently viewed can also
-            // utilize a timestamp -- just requires a new layout
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                    R.layout.content_weather_result_list_adapter, R.id.result_city, recentQueries);
-            ListView listView = (ListView) findViewById(R.id.recently_viewed);
-            listView.setAdapter(adapter);
-            // No need for on click listener
+            ImageButton closeButton = (ImageButton) findViewById(R.id.close_button);
+            closeButton.setEnabled(true);
         }
+        else {
+            ImageButton closeButton = (ImageButton) findViewById(R.id.close_button);
+            closeButton.setEnabled(false);
+        }
+    }
+
+    public void clearRecentQueries(View source) {
+        deleteFile(STORAGE_FILE);
+            ImageButton closeButton = (ImageButton) findViewById(R.id.close_button);
+            closeButton.setEnabled(false);
+            showRecentQueries();
     }
 
     @Override
