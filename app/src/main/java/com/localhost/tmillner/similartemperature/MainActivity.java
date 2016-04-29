@@ -121,20 +121,22 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     SettingsActivity.DEFAULT_COUNTRY, getString(
                             R.string.default_settings_default_country_value));
         }
+        Log.i(TAG, "Input country is " + country);
         String countryCode = placesResultDecoder.getCountryCode(country);
 
         WeatherRequest weatherRequest = WeatherRequest.getWeatherRequest(this);
         String zipCode = findZipCode(fUserInput);
+        Log.i(TAG, " Country code is " + countryCode + " zip code is " + zipCode);
         if (zipCode != "") {
             storeUserQuery(zipCode);
-            Log.d(TAG, zipCode);
+            Log.d(TAG, "Zip code query " + zipCode);
             weatherRequest.sendZipDataRequest(this, zipCode, countryCode);
         }
         else {
             String city = placesResultDecoder.getCity(fUserInput);
             if (city != "") {
                 storeUserQuery(city);
-                Log.d(TAG, city);
+                Log.d(TAG, "City query " + city);
                 weatherRequest.sendLocationDataRequest(this, city, countryCode);
             }
             else {
@@ -200,13 +202,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     private String findZipCode(String input) {
-        Pattern p = Pattern.compile("[\\d\\w]{5,}");
+        Pattern p = Pattern.compile("([\\d\\w]{5,})");
         Matcher m = p.matcher(input);
-        Integer size = m.groupCount();
-        if (size < 1) {
+        if (m.find()) {
+            return m.group();
+        }
+        else {
             return "";
         }
-        return m.group(size - 1);
     }
 
     @Override

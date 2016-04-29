@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -49,9 +50,18 @@ public class WeatherRequest {
         return new WeatherRequest(api_key, temp_units);
     }
 
+    public final Double round(Double temperature) {
+        // see: R.string.settings_temperature_metric_array_values
+        if (this.temp_units.equals("imperial")) {
+            return Double.parseDouble("" + Math.round(temperature));
+        }
+        return temperature;
+    }
+
     public JsonRequest locationDataRequest(final Context context, String city, String country,
                                            Response.Listener listener,
                                            Response.ErrorListener errorListener){
+        Log.i(TAG, "Units are " + temp_units);
         String cityUrl = "data/2.5/weather?q=%s,%s&APPID=" + api_key + "&units=" + temp_units;
         return request(context, cityUrl, city, country, listener, errorListener);
     }
@@ -59,6 +69,7 @@ public class WeatherRequest {
     public JsonRequest zipDataRequest(final Context context, String zip, String country,
                                       Response.Listener listener,
                                       Response.ErrorListener errorListener){
+        Log.i(TAG, "Units are " + temp_units);
         String zipCodeUrl = "data/2.5/weather?zip=%s,%s&APPID=" + api_key + "&units=" + temp_units;
         return request(context, zipCodeUrl, zip, country, listener, errorListener);
     }
@@ -89,9 +100,11 @@ public class WeatherRequest {
             @Override
             public void onResponse(JSONObject response) {
                 /* TODO parse this out to get location data */
-                String temperature = "";
+                Double temperature = WeatherResponseDecoder.getTemperature(response);
+                temperature = round(temperature);
+                Log.i(TAG, "Response for sendLocationDataRequest is " + temperature);
                 Intent intent = new Intent(context, ResultsActivity.class);
-                intent.putExtra(WEATHER_CURRENT, "38");
+                intent.putExtra(WEATHER_CURRENT, temperature.toString());
                 context.startActivity(intent);
             }
         }, new Response.ErrorListener() {
@@ -110,8 +123,11 @@ public class WeatherRequest {
             @Override
             public void onResponse(JSONObject response) {
                 /* TODO parse this out to get location data */
+                Double temperature = WeatherResponseDecoder.getTemperature(response);
+                temperature = round(temperature);
+                Log.i(TAG, "Response for sendLocationDataRequest is " + temperature);
                 Intent intent = new Intent(context, ResultsActivity.class);
-                intent.putExtra(WEATHER_CURRENT, "38");
+                intent.putExtra(WEATHER_CURRENT, temperature.toString());
                 context.startActivity(intent);
             }
         }, new Response.ErrorListener() {

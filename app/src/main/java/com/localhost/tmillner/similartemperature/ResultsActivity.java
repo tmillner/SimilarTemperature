@@ -1,9 +1,11 @@
 package com.localhost.tmillner.similartemperature;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -39,6 +41,7 @@ public class ResultsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_results);
         // getActionBar().setDisplayHomeAsUpEnabled(true);
         this.setDegrees();
+        this.setTemperatureButtons();
         this.setListView();
         this.getLocations();
         try {
@@ -58,7 +61,7 @@ public class ResultsActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-
+        this.setTemperatureButtons();
     }
 
     @Override
@@ -169,10 +172,10 @@ public class ResultsActivity extends AppCompatActivity {
                                     public void onResponse(Object response) {
                                         // Add items to the local matchesJSON
                                         /* Parse response and retrieve the number */
-                                        Log.d(TAG, "~~~A resonse is " + response);
-                                        Log.d(TAG, "Weather is " + WeatherResponseDecoder.getWeather((JSONObject) response));
-                                        Log.d(TAG, "Temp is " + WeatherResponseDecoder.getTemperature((JSONObject) response));
-                                        Double responseDegrees = 38d;
+                                        Log.d(TAG, "~~~A response is " + response);
+                                        //Log.d(TAG, "Weather is " + WeatherResponseDecoder.getWeather((JSONObject) response));
+                                        Double responseDegrees = round(WeatherResponseDecoder.getTemperature((JSONObject) response));
+                                        Log.d(TAG, "Temp is " + responseDegrees);
                                         if (responseDegrees.equals(degrees)) {
                                             JSONObject matchingObject = new JSONObject();
                                             try {
@@ -203,6 +206,19 @@ public class ResultsActivity extends AppCompatActivity {
         }
     }
 
+    private Double round(Double temperature) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String temp_units = sharedPreferences.getString(
+                SettingsActivity.TEMPERATURE_METRIC, getString(
+                        R.string.default_settings_temperature_metric_value));
+        // see: R.string.settings_temperature_metric_array_values
+        if (temp_units.equals("imperial")) {
+            return Double.parseDouble("" + Math.round(temperature));
+        }
+        return temperature;
+    }
+
+
     private JSONObject[] convertJSONArrayToJSONObjectArray(JSONArray jsonArray) {
         JSONObject[] jsonObjectArray = new JSONObject[jsonArray.length()];
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -217,7 +233,17 @@ public class ResultsActivity extends AppCompatActivity {
 
     public void convertToFahrenheit(View source) {
         TextView degreesView = (TextView) findViewById(R.id.degrees);
-        degreesView.setText("" + ConversionHelper.celsiusToFahrenheit(degrees));
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String temp_units = sharedPreferences.getString(
+                SettingsActivity.TEMPERATURE_METRIC, getString(
+                        R.string.default_settings_temperature_metric_value));
+        if (temp_units.equals("imperial")) {
+            degreesView.setText(degrees.toString());
+        } else {
+            degreesView.setText("" + ConversionHelper.celsiusToFahrenheit(degrees));
+        }
+
         Button fahrenheitButton = (Button) findViewById(R.id.fahrenheit_button);
         fahrenheitButton.setEnabled(false);
         Button celsiusButton = (Button) findViewById(R.id.celsius_button);
@@ -226,10 +252,38 @@ public class ResultsActivity extends AppCompatActivity {
 
     public void convertToCelsius(View source) {
         TextView degreesView = (TextView) findViewById(R.id.degrees);
-        degreesView.setText("" + ConversionHelper.fahrenheitToCelsius(degrees));
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String temp_units = sharedPreferences.getString(
+                SettingsActivity.TEMPERATURE_METRIC, getString(
+                        R.string.default_settings_temperature_metric_value));
+        if (temp_units.equals("imperial")) {
+            degreesView.setText("" + ConversionHelper.fahrenheitToCelsius(degrees));
+        } else {
+            degreesView.setText(degrees.toString());
+        }
+
         Button celsiusButton = (Button) findViewById(R.id.celsius_button);
         celsiusButton.setEnabled(false);
         Button fahrenheitButton = (Button) findViewById(R.id.fahrenheit_button);
         fahrenheitButton.setEnabled(true);
+    }
+
+    private void setTemperatureButtons() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String temp_units = sharedPreferences.getString(
+                SettingsActivity.TEMPERATURE_METRIC, getString(
+                        R.string.default_settings_temperature_metric_value));
+        if (temp_units.equals("imperial")) {
+            Button celsiusButton = (Button) findViewById(R.id.celsius_button);
+            celsiusButton.setEnabled(true);
+            Button fahrenheitButton = (Button) findViewById(R.id.fahrenheit_button);
+            fahrenheitButton.setEnabled(false);
+        } else {
+            Button celsiusButton = (Button) findViewById(R.id.celsius_button);
+            celsiusButton.setEnabled(false);
+            Button fahrenheitButton = (Button) findViewById(R.id.fahrenheit_button);
+            fahrenheitButton.setEnabled(true);
+        }
     }
 }

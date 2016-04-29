@@ -8,7 +8,7 @@
             android:summary="@string/summary_settings_temperature_metric"
             android:defaultValue="@string/default_settings_temperature_metric_value"
             android:entries="@array/settings_temperature_metric_array"
-            android:entryValues="@array/settings_temperature_metric_array">
+            android:entryValues="@array/settings_temperature_metric_array_values">
         </ListPreference>
 
         <EditTextPreference android:key="default_country"

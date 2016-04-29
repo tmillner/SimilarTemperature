@@ -24,11 +24,16 @@
 
     <string name="title_settings_temperature_metric">Your preference for temperature</string>
     <string name="summary_settings_temperature_metric">Celsius or Fahrenheit?</string>
-    <string name="default_settings_temperature_metric_value">Fahrenheit</string>
+    <string name="default_settings_temperature_metric_value">imperial</string>
     <string-array name="settings_temperature_metric_array">
         <item>Celsius</item>
         <item>Fahrenheit</item>
     </string-array>
+    <string-array name="settings_temperature_metric_array_values">
+        <item>metric</item>
+        <item>imperial</item>
+    </string-array>
+
     <string name="settings_main_category">General</string>
 
     <string name="title_settings_default_country">What is your default country</string>

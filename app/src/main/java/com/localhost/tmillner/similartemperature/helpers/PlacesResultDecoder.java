@@ -39,6 +39,9 @@ public class PlacesResultDecoder {
 
     public String getCountry(String locationFullText) {
         String country = "";
+        if (!country.matches(",") || country.matches("\\d")) {
+            return country;
+        }
         try {
             String[] addressData = locationFullText.split(",");
             country = addressData[addressData.length -1];
@@ -66,8 +69,8 @@ public class PlacesResultDecoder {
                 CountriesContract.COLUMN_COUNTRY_NAME
         };
 
-        String whereSelection = CountriesContract.COLUMN_COUNTRY_NAME + " like %?%";
-        String[] whereArgs= {country};
+        String whereSelection = CountriesContract.COLUMN_COUNTRY_NAME + " like ?";
+        String[] whereArgs= { "%" + country + "%" };
 
         Cursor cursor = db.query(CountriesContract.TABLE,
                 projection,
@@ -83,6 +86,7 @@ public class PlacesResultDecoder {
             countryCode = cursor.getString(cursor.
                     getColumnIndex(CountriesContract.COLUMN_COUNTRY_CODE));
         }
+
         return countryCode;
     }
 }
