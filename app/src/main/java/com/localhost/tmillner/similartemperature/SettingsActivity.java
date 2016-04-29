@@ -11,6 +11,8 @@ import android.view.View;
 public class SettingsActivity extends AppCompatActivity {
 
     public static String TEMPERATURE_METRIC = "temperature_metric";
+    public static String DEFAULT_COUNTRY = "default_country";
+    public static String OPEN_WEATHER_API_KEY = "open_weather_api_key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

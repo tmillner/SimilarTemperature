@@ -84,7 +84,7 @@ public class AutocompleteAdapter extends ArrayAdapter<String> {
                         }
                         if (autocompletePredictions.getStatus().isSuccess()) {
                             for(AutocompletePrediction prediction : autocompletePredictions) {
-                                add("" + prediction.getPrimaryText(null));
+                                add("" + prediction.getFullText(null));
                             }
                         }
                         autocompletePredictions.release();

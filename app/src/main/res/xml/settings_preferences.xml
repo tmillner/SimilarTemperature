@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="Category 1">
+    <PreferenceCategory android:title="@string/settings_main_category">
         <!-- keys are also associated in the SettingsActivity file -->
         <ListPreference android:key="temperature_metric"
             android:title="@string/title_settings_temperature_metric"
@@ -9,8 +9,22 @@
             android:defaultValue="@string/default_settings_temperature_metric_value"
             android:entries="@array/settings_temperature_metric_array"
             android:entryValues="@array/settings_temperature_metric_array">
-
         </ListPreference>
+
+        <EditTextPreference android:key="default_country"
+            android:title="@string/title_settings_default_country"
+            android:summary="@string/summary_settings_default_country"
+            android:defaultValue="@string/default_settings_default_country_value">
+        </EditTextPreference>
+
+        <ListPreference android:key="open_weather_api_key"
+            android:title="@string/title_settings_open_weather_api_key"
+            android:summary="@string/summary_settings_open_weather_api_key"
+            android:defaultValue="@string/default_settings_open_weather_api_key"
+            android:entries="@array/settings_open_weather_api_key_array"
+            android:entryValues="@array/settings_open_weather_api_key_array">
+        </ListPreference>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

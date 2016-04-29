@@ -9,7 +9,7 @@
     <string name="preferences_first_time_key">"firstTime"</string>
     <!-- OpenWeatherMap / https://home.openweathermap.org/ -->
     <string name="preferences_weather_api_token_key">"weatherApiToken"</string>
-    <string name="preferences_weather_api_token_value">"196be975ac5aabec76a6f15989204e99"</string>
+    <string name="preferences_weather_api_token_value">"dd2ebe434b8f0efa0ec7bc07bdbe7874"</string>
     <string name="preferences_weather_api_threshold_per_minute_key">"ThresholdPerMinute"</string>
     <string name="preferences_weather_api_threshold_per_minute_value">"60"</string>
     <string name="preferences_weather_temperature_unit_key">"temperatureUnit"</string>
@@ -28,6 +28,18 @@
     <string-array name="settings_temperature_metric_array">
         <item>Celsius</item>
         <item>Fahrenheit</item>
+    </string-array>
+    <string name="settings_main_category">General</string>
+
+    <string name="title_settings_default_country">What is your default country</string>
+    <string name="summary_settings_default_country">Used as the default value for queries when not specified</string>
+    <string name="default_settings_default_country_value">United States</string>
+
+    <string name="title_settings_open_weather_api_key">The default api key</string>
+    <string name="summary_settings_open_weather_api_key">Don\'t change this without reason</string>
+    <string name="default_settings_open_weather_api_key">@string/preferences_weather_api_token_value</string>
+    <string-array name="settings_open_weather_api_key_array">
+        <item>@string/preferences_weather_api_token_value</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->

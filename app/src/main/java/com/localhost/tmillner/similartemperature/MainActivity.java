@@ -15,10 +15,12 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import com.google.android.gms.location.places.Places;
+import com.localhost.tmillner.similartemperature.helpers.PlacesResultDecoder;
 import com.localhost.tmillner.similartemperature.helpers.Preferences;
 import com.localhost.tmillner.similartemperature.helpers.WeatherRequest;
 
@@ -28,6 +30,8 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks {
 
@@ -70,7 +74,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         showRecentQueries();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String temperatureMetric = sharedPreferences.getString(
-                SettingsActivity.TEMPERATURE_METRIC, "Fahrenheit");
+                SettingsActivity.TEMPERATURE_METRIC, getString(
+                        R.string.default_settings_temperature_metric_value));
         Log.i(TAG, "Metric is " + temperatureMetric);
     }
 
@@ -107,11 +112,38 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     public void getResults(View v) {
         String userInput = ((AutoCompleteTextView) findViewById(R.id.userInput)).getText().toString();
-        storeUserQuery(userInput);
-        Log.d(TAG, userInput);
-        // TODO Allow google places to determine the input filled out locations
-        // For now, just send a city
-        WeatherRequest.sendLocationDataRequest(this, "test");
+        String fUserInput = userInput.trim();
+        PlacesResultDecoder placesResultDecoder = new PlacesResultDecoder(this);
+        String country = placesResultDecoder.getCountry(fUserInput);
+        if (country == "") {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            country = sharedPreferences.getString(
+                    SettingsActivity.DEFAULT_COUNTRY, getString(
+                            R.string.default_settings_default_country_value));
+        }
+        String countryCode = placesResultDecoder.getCountryCode(country);
+
+        WeatherRequest weatherRequest = WeatherRequest.getWeatherRequest(this);
+        String zipCode = findZipCode(fUserInput);
+        if (zipCode != "") {
+            storeUserQuery(zipCode);
+            Log.d(TAG, zipCode);
+            weatherRequest.sendZipDataRequest(this, zipCode, countryCode);
+        }
+        else {
+            String city = placesResultDecoder.getCity(fUserInput);
+            if (city != "") {
+                storeUserQuery(city);
+                Log.d(TAG, city);
+                weatherRequest.sendLocationDataRequest(this, city, countryCode);
+            }
+            else {
+                String msg = "Invalid input. " +
+                        "Enter a postal code or city,country.\n 98103\n Seattle, United States";
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_LONG).show();
+            }
+        }
+        weatherRequest = null;
     }
 
     private void storeUserQuery(String query) {
@@ -165,6 +197,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             ImageButton closeButton = (ImageButton) findViewById(R.id.close_button);
             closeButton.setEnabled(false);
             showRecentQueries();
+    }
+
+    private String findZipCode(String input) {
+        Pattern p = Pattern.compile("[\\d\\w]{5,}");
+        Matcher m = p.matcher(input);
+        Integer size = m.groupCount();
+        if (size < 1) {
+            return "";
+        }
+        return m.group(size - 1);
     }
 
     @Override

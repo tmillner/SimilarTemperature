@@ -160,7 +160,8 @@ public class ResultsActivity extends AppCompatActivity {
             for (int i = 0; i < ((JSONArray) places.get("results")).length(); i++) {
                 final JSONObject result = (JSONObject) ((JSONArray) places.get("results")).get(i);
                 Log.d(TAG, "~~~A Result is " + result.toString());
-                WeatherRequest.getLocationDataRequest(this,
+                WeatherRequest weatherRequest= WeatherRequest.getWeatherRequest(this);
+                weatherRequest.getLocationDataRequest(this,
                         (String) result.get("city"),
                         (String) result.get("country"),
                                 new Response.Listener() {
