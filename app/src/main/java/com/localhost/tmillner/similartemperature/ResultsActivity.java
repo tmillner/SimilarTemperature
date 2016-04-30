@@ -97,7 +97,7 @@ public class ResultsActivity extends AppCompatActivity {
         SQLiteDatabase db = new WeatherHelper(this).getReadableDatabase();
         String[] projection = {
                 WeatherContract.COLUMN_CITY,
-                WeatherContract.COLUMN_COUNTRY,
+                WeatherContract.COLUMN_COUNTRY_ID,
                 WeatherContract.COLUMN_POPULATION
         };
 
@@ -146,7 +146,7 @@ public class ResultsActivity extends AppCompatActivity {
                 result.put("city", cursor.getString(cursor.
                         getColumnIndex(WeatherContract.COLUMN_CITY)));
                 result.put("country", cursor.getString(cursor.
-                        getColumnIndex(WeatherContract.COLUMN_COUNTRY)));
+                        getColumnIndex(WeatherContract.COLUMN_COUNTRY_ID)));
                 result.put("population", cursor.getString(cursor.
                         getColumnIndex(WeatherContract.COLUMN_POPULATION)));
                 places.accumulate("results",result);

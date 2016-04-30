@@ -40,7 +40,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
-                android:hint="zip code"/>
+                android:hint="@string/main_text_input_hint"/>
 
             <ImageButton
                 android:layout_width="0dp"

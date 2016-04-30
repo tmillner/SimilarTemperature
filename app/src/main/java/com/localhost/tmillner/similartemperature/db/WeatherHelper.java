@@ -14,7 +14,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 
-
 /**
  * Created by macbookpro on 3/23/16.
  */
@@ -31,16 +30,18 @@ public class WeatherHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL(CountriesContract.CREATE_TABLE);
         db.execSQL(WeatherContract.CREATE_TABLE);
         // For previewing, populate w/some data
         db.execSQL(WeatherContract.ADD_SAMPLE_DATA);
-        db.execSQL(CountriesContract.CREATE_TABLE);
         populateCountriesData(db, CountriesContract.TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL(WeatherContract.DROP_TABLE);
+        db.execSQL(WeatherContract.CREATE_TABLE);
+        db.execSQL(WeatherContract.ADD_SAMPLE_DATA);
     }
 
     public void populateCountriesData(SQLiteDatabase db, String table) {
@@ -78,5 +79,9 @@ public class WeatherHelper extends SQLiteOpenHelper {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void populateCitiesData(SQLiteDatabase db, String table) {
+
     }
 }

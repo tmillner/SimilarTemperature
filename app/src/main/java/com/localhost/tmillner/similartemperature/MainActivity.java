@@ -140,8 +140,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 weatherRequest.sendLocationDataRequest(this, city, countryCode);
             }
             else {
-                String msg = "Invalid input. " +
-                        "Enter a postal code or city,country.\n 98103\n Seattle, United States";
+                String msg = "Invalid input. Enter a postal code or city, country. Like: \n " +
+                        " 98103\n Seattle, United States";
                 Toast.makeText(MainActivity.this, msg, Toast.LENGTH_LONG).show();
             }
         }

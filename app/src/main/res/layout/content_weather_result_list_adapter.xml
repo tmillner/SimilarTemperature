@@ -15,19 +15,19 @@
     <TextView
         android:id="@+id/result_city"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:textSize="18dp"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
         android:textColor="@color/colorPrimaryDark"
         android:hint="my city"/>
 
     <TextView
         android:id="@+id/result_country"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="18dp"
-        android:hint="my country"
-        android:layout_marginLeft="50pt" />
+        android:hint="us"
+        android:layout_marginLeft="20dp" />
 
     <!-- Do we want to store an icon of the weather type??? -->
 
