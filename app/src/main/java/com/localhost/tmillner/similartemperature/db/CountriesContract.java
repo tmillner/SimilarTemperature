@@ -21,5 +21,6 @@ public class CountriesContract {
             COLUMN_COUNTRY_CODE + " char(3) " +
             ")";
 
-    public static final String JSON_DATA_FILE = "";
+    public static final String DROP_TABLE = "DROP TABLE " + TABLE +
+            " CASCADE CONSTRAINTS";
 }
