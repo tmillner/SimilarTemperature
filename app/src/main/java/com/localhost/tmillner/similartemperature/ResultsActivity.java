@@ -1,9 +1,12 @@
 package com.localhost.tmillner.similartemperature;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -34,6 +38,7 @@ public class ResultsActivity extends AppCompatActivity {
     private JSONObject places = new JSONObject();
     private JSONObject matches = new JSONObject();
     private ListView listView;
+    private final static int READ_PERMISSION_CODE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +97,26 @@ public class ResultsActivity extends AppCompatActivity {
         degreesTextView.setText(String.format("°%s  ", degrees));
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] results) {
+        switch(requestCode){
+            case READ_PERMISSION_CODE: {
+                if (results.length > 0 && results[0] == PackageManager.PERMISSION_GRANTED) {
+                    getLocations();
+                }
+            }
+        }
+    }
+
     public void getLocations() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, READ_PERMISSION_CODE);
+            }
+        }
         // First query DB for locations above threshold
+        new WeatherHelper(this).test();
+
         SQLiteDatabase db = new WeatherHelper(this).getReadableDatabase();
         String[] projection = {
                 WeatherContract.COLUMN_CITY,

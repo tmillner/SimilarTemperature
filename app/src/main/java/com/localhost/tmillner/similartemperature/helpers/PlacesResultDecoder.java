@@ -63,6 +63,7 @@ public class PlacesResultDecoder {
      */
     private String findCountryCode(String country) {
         String countryCode = "";
+        new WeatherHelper(context).test();
         SQLiteDatabase db = new WeatherHelper(context).getReadableDatabase();
         String[] projection = {
                 CountriesContract.COLUMN_COUNTRY_CODE,
