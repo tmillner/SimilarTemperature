@@ -15,7 +15,6 @@ public class CountriesContract {
     public static final String COLUMN_COUNTRY_CODE = "country_code";
 
 
-    // create table countries(id integer primary key, country_name varchar(200), country_code char(3));
     public static final String CREATE_TABLE = "CREATE TABLE " + TABLE + "(" +
             COLUMN_ID + " integer primary key, " +
             COLUMN_COUNTRY_NAME + " varchar(200), " +

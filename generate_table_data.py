@@ -56,5 +56,3 @@ for country in data:
         i += 1
 with open(outputfile, "w") as f:
     f.write(out)
-
-
