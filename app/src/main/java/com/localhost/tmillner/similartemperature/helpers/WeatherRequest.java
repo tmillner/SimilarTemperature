@@ -28,6 +28,8 @@ public class WeatherRequest {
     public final static String TAG = WeatherRequest.class.getSimpleName();
     public final static String ERROR_MESSAGE = "com.localhost.tmillner.similartemperature.weather.ERROR";
     public final static String WEATHER_CURRENT = "com.localhost.tmillner.similartemperature.weather.WEATHER_CURRENT";
+    public final static String TEMPERATURE_CURRENT = "com.localhost.tmillner.similartemperature.weather.TEMPERATURE_CURRENT";
+    public final static String QUERY_COUNTRY = "com.localhost.tmillner.similartemperature.weather.QUERY_COUNTRY";
     private final static String API_DOMAIN = "http://api.openweathermap.org/";
     private String api_key = "";
     private String temp_units;
@@ -85,8 +87,8 @@ public class WeatherRequest {
                 Request.Method.GET,
                 API_DOMAIN + String.format(
                         url,
-                        location,
-                        country
+                        location.replace(" ", "%20"),
+                        country.replace(" ", "%20")
                 ),
                 null,
                 listener,
@@ -99,18 +101,22 @@ public class WeatherRequest {
         locationDataRequest(context, city, country, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                /* TODO parse this out to get location data */
                 Double temperature = WeatherResponseDecoder.getTemperature(response);
+                String weather = WeatherResponseDecoder.getWeather(response);
+                String country = WeatherResponseDecoder.getCountry(response);
                 temperature = round(temperature);
                 Log.i(TAG, "Response for sendLocationDataRequest is " + temperature);
                 Intent intent = new Intent(context, ResultsActivity.class);
-                intent.putExtra(WEATHER_CURRENT, temperature.toString());
+                intent.putExtra(TEMPERATURE_CURRENT, temperature.toString());
+                intent.putExtra(WEATHER_CURRENT, weather);
+                intent.putExtra(QUERY_COUNTRY, country);
                 context.startActivity(intent);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 /* Send back to the main search screen with an error displayed */
+                Log.w(TAG, "Hit an error on weather request");
                 Intent intent = new Intent(context, MainActivity.class);
                 intent.putExtra(ERROR_MESSAGE, error.getMessage());
                 context.startActivity(intent);
@@ -122,18 +128,22 @@ public class WeatherRequest {
         zipDataRequest(context, zip, country, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                /* TODO parse this out to get location data */
                 Double temperature = WeatherResponseDecoder.getTemperature(response);
+                String weather = WeatherResponseDecoder.getWeather(response);
+                String country = WeatherResponseDecoder.getCountry(response);
                 temperature = round(temperature);
                 Log.i(TAG, "Response for sendLocationDataRequest is " + temperature);
                 Intent intent = new Intent(context, ResultsActivity.class);
-                intent.putExtra(WEATHER_CURRENT, temperature.toString());
+                intent.putExtra(TEMPERATURE_CURRENT, temperature.toString());
+                intent.putExtra(WEATHER_CURRENT, weather);
+                intent.putExtra(QUERY_COUNTRY, country);
                 context.startActivity(intent);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 /* Send back to the main search screen with an error displayed */
+                Log.w(TAG, "Hit an error on weather request");
                 Intent intent = new Intent(context, MainActivity.class);
                 intent.putExtra(ERROR_MESSAGE, error.getMessage());
                 context.startActivity(intent);

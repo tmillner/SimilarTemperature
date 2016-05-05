@@ -1,5 +1,6 @@
 package com.localhost.tmillner.similartemperature;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -7,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.localhost.tmillner.similartemperature.db.CountriesContract;
 import com.localhost.tmillner.similartemperature.db.WeatherContract;
 import com.localhost.tmillner.similartemperature.db.WeatherHelper;
 import com.localhost.tmillner.similartemperature.helpers.ConversionHelper;
@@ -27,10 +30,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileOutputStream;
+
 public class ResultsActivity extends AppCompatActivity {
 
     private final static String TAG = ResultsActivity.class.getSimpleName();
     private Double degrees;
+    private String weather;
+    private String queryCountry;
     private JSONObject places = new JSONObject();
     private JSONObject matches = new JSONObject();
     private ListView listView;
@@ -39,8 +46,12 @@ public class ResultsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
-        // getActionBar().setDisplayHomeAsUpEnabled(true);
-        this.setDegrees();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        this.setCurrentWeather();
         this.setTemperatureButtons();
         this.setListView();
         this.getLocations();
@@ -83,10 +94,22 @@ public class ResultsActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.results);
     }
 
-    public void setDegrees() {
+    private void storeUserQuery(String query, String weather, String country) {
+        try {
+            FileOutputStream outputStream = openFileOutput(MainActivity.STORAGE_FILE, Context.MODE_APPEND);
+            outputStream.write(String.format("%s,%s,%s\n", query, weather, country).getBytes());
+            outputStream.close();
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setCurrentWeather() {
         Intent intent = getIntent();
-        String degrees = intent.getStringExtra(WeatherRequest.WEATHER_CURRENT);
+        String degrees = intent.getStringExtra(WeatherRequest.TEMPERATURE_CURRENT);
         this.degrees = Double.parseDouble(degrees);
+        this.weather = intent.getStringExtra(WeatherRequest.WEATHER_CURRENT);
+        this.queryCountry = intent.getStringExtra(WeatherRequest.QUERY_COUNTRY);
 
         TextView degreesTextView = (TextView) findViewById(R.id.degrees);
         degreesTextView.setText(String.format("°%s  ", degrees));
@@ -94,29 +117,25 @@ public class ResultsActivity extends AppCompatActivity {
 
     public void getLocations() {
         // First query DB for locations above threshold
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String minCityPopulationCriteria = sharedPreferences.getString(
+                SettingsActivity.MIN_POPULATION_CRITERIA, getString(
+                        R.string.default_settings_min_population_criteria_value));
+        String limit = getString(R.string.preferences_weather_api_lax_threshold_value);
+
         SQLiteDatabase db = new WeatherHelper(this).getReadableDatabase();
-        String[] projection = {
-                WeatherContract.COLUMN_CITY,
-                WeatherContract.COLUMN_COUNTRY_ID,
-                WeatherContract.COLUMN_POPULATION
-        };
+        Cursor cursor = db.rawQuery("SELECT " +
+                        WeatherContract.COLUMN_CITY + ", " +
+                        CountriesContract.COLUMN_COUNTRY_NAME + ", " +
+                        WeatherContract.COLUMN_POPULATION + " FROM " + WeatherContract.TABLE +
+                        " JOIN " + CountriesContract.TABLE + " ON " +
+                        WeatherContract.TABLE + "." + WeatherContract.COLUMN_COUNTRY_ID + "=" +
+                        CountriesContract.TABLE + "." + CountriesContract.COLUMN_ID +
+                        " WHERE " + WeatherContract.COLUMN_POPULATION + " > ?" +
+                        " ORDER BY RANDOM() LIMIT " + limit,
+                new String[]{minCityPopulationCriteria}
+        );
 
-        String whereSelection = WeatherContract.COLUMN_POPULATION + " > ?";
-        // WeatherContract.COLUMN_POPULATION is stored as a long, not sure if string will work
-        String[] whereArgs= {getString(R.string.preferences_weather_city_min_population_value)};
-
-        String sortOrder = "CASE WHEN " + WeatherContract.COLUMN_POPULATION + " IS NULL " +
-                " THEN 0 ELSE 1 END, " + WeatherContract.COLUMN_POPULATION;
-        Cursor cursor = db.query(WeatherContract.TABLE,
-                projection,
-                whereSelection,
-                whereArgs,
-                null,
-                null,
-                sortOrder,
-                getString(R.string.preferences_weather_api_threshold_per_minute_value));
-
-        // Then query API for locations that match
         cursor.move(-1);
         storeMatches(cursor);
     }
@@ -146,7 +165,7 @@ public class ResultsActivity extends AppCompatActivity {
                 result.put("city", cursor.getString(cursor.
                         getColumnIndex(WeatherContract.COLUMN_CITY)));
                 result.put("country", cursor.getString(cursor.
-                        getColumnIndex(WeatherContract.COLUMN_COUNTRY_ID)));
+                        getColumnIndex(CountriesContract.COLUMN_COUNTRY_NAME)));
                 result.put("population", cursor.getString(cursor.
                         getColumnIndex(WeatherContract.COLUMN_POPULATION)));
                 places.accumulate("results",result);
@@ -172,8 +191,12 @@ public class ResultsActivity extends AppCompatActivity {
                                     public void onResponse(Object response) {
                                         // Add items to the local matchesJSON
                                         /* Parse response and retrieve the number */
-                                        Log.d(TAG, "~~~A response is " + response);
-                                        //Log.d(TAG, "Weather is " + WeatherResponseDecoder.getWeather((JSONObject) response));
+                                        try {
+                                            Log.d(TAG, "~~~A response is for " + result.get("city") + " is " + response);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        String weather =  WeatherResponseDecoder.getWeather((JSONObject) response);
                                         Double responseDegrees = round(WeatherResponseDecoder.getTemperature((JSONObject) response));
                                         Log.d(TAG, "Temp is " + responseDegrees);
                                         if (responseDegrees.equals(degrees)) {
@@ -181,6 +204,7 @@ public class ResultsActivity extends AppCompatActivity {
                                             try {
                                                 matchingObject.put("city", result.get("city"));
                                                 matchingObject.put("country", result.get("country"));
+                                                matchingObject.put("weather", weather);
                                                 matches.accumulate("results", matchingObject);
 
                                                 listView.setAdapter(new WeatherResultListAdapter(
@@ -244,10 +268,7 @@ public class ResultsActivity extends AppCompatActivity {
             degreesView.setText("" + ConversionHelper.celsiusToFahrenheit(degrees));
         }
 
-        Button fahrenheitButton = (Button) findViewById(R.id.fahrenheit_button);
-        fahrenheitButton.setEnabled(false);
-        Button celsiusButton = (Button) findViewById(R.id.celsius_button);
-        celsiusButton.setEnabled(true);
+        enableMetricButton(R.id.celsius_button);
     }
 
     public void convertToCelsius(View source) {
@@ -263,10 +284,7 @@ public class ResultsActivity extends AppCompatActivity {
             degreesView.setText(degrees.toString());
         }
 
-        Button celsiusButton = (Button) findViewById(R.id.celsius_button);
-        celsiusButton.setEnabled(false);
-        Button fahrenheitButton = (Button) findViewById(R.id.fahrenheit_button);
-        fahrenheitButton.setEnabled(true);
+        enableMetricButton(R.id.fahrenheit_button);
     }
 
     private void setTemperatureButtons() {
@@ -275,15 +293,21 @@ public class ResultsActivity extends AppCompatActivity {
                 SettingsActivity.TEMPERATURE_METRIC, getString(
                         R.string.default_settings_temperature_metric_value));
         if (temp_units.equals("imperial")) {
-            Button celsiusButton = (Button) findViewById(R.id.celsius_button);
-            celsiusButton.setEnabled(true);
-            Button fahrenheitButton = (Button) findViewById(R.id.fahrenheit_button);
-            fahrenheitButton.setEnabled(false);
+            enableMetricButton(R.id.celsius_button);
         } else {
-            Button celsiusButton = (Button) findViewById(R.id.celsius_button);
-            celsiusButton.setEnabled(false);
-            Button fahrenheitButton = (Button) findViewById(R.id.fahrenheit_button);
+            enableMetricButton(R.id.fahrenheit_button);
+        }
+    }
+
+    private void enableMetricButton(Integer resource) {
+        Button celsiusButton = (Button) findViewById(R.id.celsius_button);
+        Button fahrenheitButton = (Button) findViewById(R.id.fahrenheit_button);
+        if (resource == R.id.fahrenheit_button) {
             fahrenheitButton.setEnabled(true);
+            celsiusButton.setEnabled(false);
+        } else {
+            celsiusButton.setEnabled(true);
+            fahrenheitButton.setEnabled(false);
         }
     }
 }

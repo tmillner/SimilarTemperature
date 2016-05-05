@@ -31,16 +31,30 @@ public class WeatherResponseDecoder {
     }
 
     public static Double getTemperature(JSONObject jsonObject) {
-        Double weather = null;
+        Double temp = null;
         try {
-            weather = (Double) ((JSONObject) jsonObject.get("main")).get("temp");
+            temp = Double.parseDouble(((JSONObject) jsonObject.get("main")).get("temp").toString());
             DecimalFormat df = new DecimalFormat("#.#");
-            String fWeather = df.format(weather);
-            weather = Double.parseDouble(fWeather);
+            String fWeather = df.format(temp);
+            temp = Double.parseDouble(fWeather);
         } catch (JSONException e) {
             Log.w(TAG, "Couldn't get temperature " + e.getLocalizedMessage());
             e.printStackTrace();
         }
-        return weather;
+        return temp;
+    }
+
+    public static String getCountry(JSONObject jsonObject) {
+        String country = "";
+        try {
+            country = (String)
+                    ((JSONObject)
+                            ((JSONArray) jsonObject.get("sys")).get(0))
+                            .get("country");
+        } catch (JSONException e) {
+            Log.w(TAG, "Couldn't get country " + e.getLocalizedMessage());
+            e.printStackTrace();
+        }
+        return country;
     }
 }

@@ -48,6 +48,7 @@ for country in data:
         else:
             population = re.compile("[^\d]").sub("", population)
         city_name = city_name.split(",")[0].replace("_", " ")
+        city_name = re.compile("(\s?)+\(.*\)").sub("", city_name)
         sections = city_name.split("/")
         if len(sections) > 0:
             city_name = sections[len(sections) - 1]

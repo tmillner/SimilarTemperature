@@ -36,10 +36,10 @@ import java.util.regex.Pattern;
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks {
 
     private final static String TAG = MainActivity.class.getSimpleName();
-    private final static String STORAGE_FILE = String.format(
-            "com.localhost.tmillner.similartemperature.%s.RECENT_QUERIES", TAG);
     private AutocompleteAdapter acTextViewAdapter= null;
     private GoogleApiClient googleApiClient = null;
+    public final static String STORAGE_FILE = String.format(
+            "com.localhost.tmillner.similartemperature.%s.RECENT_QUERIES", TAG);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

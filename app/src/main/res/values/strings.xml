@@ -13,12 +13,11 @@
     <string name="preferences_weather_api_token_value">"dd2ebe434b8f0efa0ec7bc07bdbe7874"</string>
     <string name="preferences_weather_api_threshold_per_minute_key">"ThresholdPerMinute"</string>
     <string name="preferences_weather_api_threshold_per_minute_value">"60"</string>
+    <string name="preferences_weather_api_lax_threshold_value">"18"</string>
     <string name="preferences_weather_temperature_unit_key">"temperatureUnit"</string>
     <string name="preferences_weather_temperature_unit_value">"metric"</string>
-    <string name="preferences_weather_city_min_population_key">"CityMinPopulation"</string>
-    <string name="preferences_weather_city_min_population_value">100000</string>
 
-    <string name="title_activity_results">ResultsActivity</string>
+    <string name="title_activity_results">Search Results</string>
     <string name="results_heading_string">Places that are also ...</string>
     <string name="title_activity_weather_result_list_adapter">WeatherResultListAdapter</string>
     <string name="title_activity_settings">SettingsActivity</string>
@@ -48,6 +47,8 @@
         <item>@string/preferences_weather_api_token_value</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_settings_min_population_criteria">Minimum population amount of cities to include in search</string>
+    <string name="summary_settings_min_population_criteria">The minimum population amount of a city to be included in search</string>
+    <string name="default_settings_min_population_criteria_value">200000</string>
+
 </resources>

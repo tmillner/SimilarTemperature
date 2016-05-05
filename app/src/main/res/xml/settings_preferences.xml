@@ -25,6 +25,12 @@
             android:entryValues="@array/settings_open_weather_api_key_array">
         </ListPreference>
 
+        <EditTextPreference android:key="min_population_criteria"
+            android:title="@string/title_settings_min_population_criteria"
+            android:summary="@string/summary_settings_min_population_criteria"
+            android:defaultValue="@string/default_settings_min_population_criteria_value">
+        </EditTextPreference>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

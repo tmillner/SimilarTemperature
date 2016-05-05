@@ -594,7 +594,7 @@
 594,Weert,189,48825
 595,Vlagtwedde,189,15878
 596,Het Bildt,189,10657
-597,Oldambt (municipality),189,38495
+597,Oldambt,189,38495
 598,Alkmaar,189,95076
 599,Horst aan de Maas,189,41680
 600,Onderbanken,189,7892
@@ -602,7 +602,7 @@
 602,Menterwolde,189,12233
 603,Zuidplas,189,40838
 604,Menameradiel,189,13614
-605,Reimerswaal (municipality),189,21999
+605,Reimerswaal,189,21999
 606,Terneuzen,189,54771
 607,Waalwijk,189,46495
 608,Midden-Delfland,189,18514
@@ -697,7 +697,7 @@
 697,Aalten,189,27008
 698,Beuningen,189,25267
 699,Blaricum,189,9182
-700,Westland (municipality),189,103716
+700,Westland,189,103716
 701,Medemblik,189,43391
 702,Roosendaal,189,76959
 703,Heumen,189,16384
@@ -710,7 +710,7 @@
 710,Leek,189,19626
 711,Hardenberg,189,59689
 712,Laren,189,10861
-713,Berg en Dal (municipality),189,18891
+713,Berg en Dal,189,18891
 714,Maassluis,189,32230
 715,Almelo,189,72511
 716,Wierden,189,23932
@@ -753,7 +753,7 @@
 753,Epe,189,32360
 754,Bonaire,189,17408
 755,Schiermonnikoog,189,942
-756,Kampen (Overijssel),189,51278
+756,Kampen,189,51278
 757,Haarlemmermeer,189,144226
 758,Almere,189,196290
 759,Deurne,189,31711
@@ -951,7 +951,7 @@
 951,Oshwe,81,22576
 952,Fizi,81,405255
 953,Opala,81,15569
-954,Bulungu (Bandundu province),81,57168
+954,Bulungu,81,57168
 955,Boende,81,36158
 956,Tshikapa,81,587548
 957,Mbanza-Ngungu,81,100000
@@ -1169,8 +1169,8 @@
 1169,Punta del Este,181,9277
 1170,Colonia del Sacramento,181,26231
 1171,Halych,186,6290
-1172,Druzhba (city),186,5150
-1173,Kirovske (Donetsk Oblast),186,28149
+1172,Druzhba,186,5150
+1173,Kirovske,186,28149
 1174,Kupiansk,186,29595
 1175,Tokmak,186,32996
 1176,Dolynska,186,19420
@@ -1365,7 +1365,7 @@
 1365,Skalat,186,3989
 1366,Berehove,186,24458
 1367,Kirovsk,186,28529
-1368,Mykolaivka (city),186,15684
+1368,Mykolaivka,186,15684
 1369,Lyman,186,22509
 1370,Schastia,186,12773
 1371,Slavutych,186,25112
@@ -1375,7 +1375,7 @@
 1375,Kremenets,186,21880
 1376,Vorozhba,186,8384
 1377,Hlyniany,186,3183
-1378,Komarno (Ukraine),186,3842
+1378,Komarno,186,3842
 1379,Chornomorsk,186,59229
 1380,Baturyn,186,3066
 1381,Haivoron,186,15214
@@ -1452,7 +1452,7 @@
 1452,Shumsk,186,5161
 1453,Olevsk,186,10231
 1454,Khyriv,186,4088
-1455,Kamianka (Cherkasy Oblast),186,12956
+1455,Kamianka,186,12956
 1456,Ukrainka,186,14163
 1457,Nova Odesa,186,12164
 1458,Kamin-Kashyrskyi,186,12330
@@ -1484,7 +1484,7 @@
 1484,Pyriatyn,186,15882
 1485,Liubotyn,186,24173
 1486,Mala Vyska,186,13132
-1487,Baranivka (city),186,12584
+1487,Baranivka,186,12584
 1488,Khrystynivka,186,18671
 1489,Derhachi,186,20258
 1490,Bakhmach,186,20300
@@ -1496,7 +1496,7 @@
 1496,Svatove,186,18241
 1497,Shostka,186,85800
 1498,Nosivka,186,14185
-1499,Semenivka (Chernihiv Oblast),186,8450
+1499,Semenivka,186,8450
 1500,Schors,186,11393
 1501,Ulianovka,186,6109
 1502,Radyvyliv,186,10487
@@ -1568,7 +1568,7 @@
 1568,Miusynsk,186,4732
 1569,Belz,186,2343
 1570,Kramatorsk,186,164283
-1571,Chernobyl (city),186,1941
+1571,Chernobyl,186,1941
 1572,Bilytske,186,8691
 1573,Malyn,186,26934
 1574,Yenakiieve,186,82629
@@ -1581,7 +1581,7 @@
 1581,Kampala,185,1659600
 1582,Gazojak,226,23454
 1583,Baharly,226,16823
-1584,Serdar (city),226,33388
+1584,Serdar,226,33388
 1585,Bereket,226,23200
 1586,Murgap,226,10000
 1587,Anau,226,9332
@@ -1731,7 +1731,7 @@
 1731,Ghomrassen,223,15957
 1732,El Djem,223,48611
 1733,Menzel Chaker,223,2212
-1734,Carthage (municipality),223,21276
+1734,Carthage,223,21276
 1735,Degache,223,30000
 1736,Houmt El Souk,223,75904
 1737,Hammamet,223,97579
@@ -1775,7 +1775,7 @@
 1775,Dapaong,231,58071
 1776,Vogan,231,1019
 1777,Pak Kret,229,178907
-1778,Nonthaburi (city),229,258550
+1778,Nonthaburi,229,258550
 1779,Khon Kaen,229,113754
 1780,Bangkok,229,8280925
 1781,Pattaya,229,107406
@@ -1791,15 +1791,15 @@
 1791,Uttaradit,229,36313
 1792,Chiang Mai,229,148477
 1793,Chumphon,229,33522
-1794,Phra Nakhon Si Ayutthaya (city),229,54888
+1794,Phra Nakhon Si Ayutthaya,229,54888
 1795,Samut Songkhram,229,194086
-1796,Sisaket (town),229,39679
+1796,Sisaket,229,39679
 1797,Lampang,229,58074
 1798,Phetchaburi,229,26181
 1799,Nong Khai,229,46180
 1800,Saraburi,229,61900
 1801,Suphanburi,229,26656
-1802,Phuket (city),229,76000
+1802,Phuket,229,76000
 1803,Yala,229,76853
 1804,Pattani,229,43631
 1805,Sateng Nok,229,5155
@@ -1808,12 +1808,12 @@
 1808,Phitsanulok,229,84311
 1809,Maha Sarakham,229,40154
 1810,Nakhon Ratchasima,229,166217
-1811,Chonburi (city),229,180000
+1811,Chonburi,229,180000
 1812,Sa Kaeo,229,16591
 1813,Nang Rong,229,21257
 1814,Nong Bua Lamphu,229,21072
 1815,Chachoengsao,229,60893
-1816,Tak (town),229,19900
+1816,Tak,229,19900
 1817,Ubon Ratchathani,229,106602
 1818,Kalasin,229,37653
 1819,Pathum Thani,229,18320
@@ -1834,7 +1834,7 @@
 1834,Rayong,229,54641
 1835,Udon Thani,229,153329
 1836,Chai Nat,229,14469
-1837,Trang (city),229,59637
+1837,Trang,229,59637
 1838,Mae Hia,229,18546
 1839,Njombe,218,40607
 1840,Singida Urban,218,150379
@@ -2079,7 +2079,7 @@
 2079,Brig,74,12935
 2080,Villeneuve,74,5309
 2081,Birsfelden,74,10339
-2082,Greifensee (town),74,5300
+2082,Greifensee,74,5300
 2083,Baden,74,18670
 2084,Vevey,74,19220
 2085,Bulle,74,21464
@@ -2182,14 +2182,14 @@
 2182,Wiedlisbach,74,2270
 2183,Wallisellen,74,15315
 2184,Bourg-Saint-Pierre,74,186
-2185,Werdenberg (Wahlkreis),74,37581
+2185,Werdenberg,74,37581
 2186,Sursee,74,9390
 2187,Horw,74,13813
 2188,Wangen an der Aare,74,2201
 2189,Eglisau,74,4961
 2190,Ebikon,74,12781
 2191,Rheinau,74,1312
-2192,Appenzell (town),74,5750
+2192,Appenzell,74,5750
 2193,Affoltern am Albis,74,11540
 2194,Sierre,74,16547
 2195,Estavayer-le-Lac,74,6134
@@ -2242,7 +2242,7 @@
 2242,Lysekil,110,7628
 2243,Ludvika,110,14498
 2244,Vetlanda,110,13050
-2245,Avesta (locality),110,14506
+2245,Avesta,110,14506
 2246,Lycksele,110,8513
 2247,Sandviken,110,22965
 2248,Gothenburg,110,548190
@@ -2393,7 +2393,7 @@
 2393,Antequera,179,45854
 2394,Villarrobledo,179,26583
 2395,Province of Biscay,179,1159639
-2396,Basque Country (autonomous community),179,2166184
+2396,Basque Country,179,2166184
 2397,Balearic Islands,179,1106049
 2398,Extremadura,179,1097744
 2399,Zaragoza,179,666058
@@ -2409,7 +2409,7 @@
 2409,Castilla-La Mancha,179,2121888
 2410,Granada,179,237540
 2411,Vigo,179,294997
-2412,Cuenca (Spain),179,57032
+2412,Cuenca,179,57032
 2413,Cartagena,179,216655
 2414,Palma,179,401270
 2415,Albacete,179,172693
@@ -2421,7 +2421,7 @@
 2421,Aragon,179,1317847
 2422,Zaragoza,179,666058
 2423,Cartagena,179,216655
-2424,La Rioja (Spain),179,308968
+2424,La Rioja,179,308968
 2425,Vitoria-Gasteiz,179,243918
 2426,Province of Valladolid,179,529159
 2427,Lorca,179,92694
@@ -2436,7 +2436,7 @@
 2436,Valencia,179,809267
 2437,Catalonia,179,7565603
 2438,Seville,179,703021
-2439,Galicia (Spain),179,2765940
+2439,Galicia,179,2765940
 2440,Barcelona,179,1604555
 2441,Andalusia,179,8402305
 2442,Madrid,179,3141991
@@ -2453,7 +2453,7 @@
 2453,Jumilla,179,25348
 2454,Fuenlabrada,179,197836
 2455,Utrera,179,51887
-2456,Province of Cuenca (Spain),179,218036
+2456,Province of Cuenca,179,218036
 2457,Caravaca de la Cruz,179,26415
 2458,Sokcho,207,89461
 2459,Jeonju,207,653887
@@ -3062,7 +3062,7 @@
 3062,Vaslui,166,50935
 3063,Ineu,166,9078
 3064,Iernut,166,9523
-3065,Deta (town),166,5963
+3065,Deta,166,5963
 3066,Chitila,166,12643
 3067,Tismana,166,7578
 3068,Strehaia,166,11846
@@ -3087,12 +3087,12 @@
 3087,Bechet,166,3864
 3088,Motru,166,22848
 3089,Fundulea,166,6217
-3090,Al Sadd (Qatar),250,14113
+3090,Al Sadd,250,14113
 3091,Fereej Kulaib,250,7702
 3092,Al Bidda,250,1102
 3093,Al Kharrara,250,117
 3094,Al-Shahaniya,250,187571
-3095,Al Hilal (district),250,11257
+3095,Al Hilal,250,11257
 3096,Rawdat Rashed,250,6046
 3097,Al Thakhira,250,13511
 3098,Mesaieed Industrial Area,250,123
@@ -3105,7 +3105,7 @@
 3105,Old Al Ghanim,250,17692
 3106,Shagra,250,35000
 3107,Ad Dawhah al Jadidah,250,13059
-3108,Al Thumama (Doha),250,16596
+3108,Al Thumama,250,16596
 3109,Umm Bab,250,6194
 3110,Al Wakrah,250,79457
 3111,Fereej Abdel Aziz,250,10808
@@ -3114,14 +3114,14 @@
 3114,Abu Samra,250,1065
 3115,Al Ghuwariyah,250,4834
 3116,Lejbailat,250,4024
-3117,Najma (Doha),250,24763
-3118,Al Messila (Doha),250,4716
+3117,Najma,250,24763
+3118,Al Messila,250,4716
 3119,Bin Mahmoud,250,24172
 3120,Al Daayen,250,24772
 3121,Al Nasraniya,250,1043
 3122,Duhail,250,7059
 3123,Ras Abu Aboud,250,0
-3124,Industrial Area (Doha),250,261401
+3124,Industrial Area,250,261401
 3125,Mushayrib,250,22711
 3126,Al Utouriya,250,1060
 3127,Sawda Natheel,250,15
@@ -3130,11 +3130,11 @@
 3130,Al Wukair,250,4400
 3131,Al Jasrah,250,240
 3132,Lijmiliya,250,1706
-3133,Old Airport (Doha),250,44275
+3133,Old Airport,250,44275
 3134,Madinat Khalifa South,250,19821
 3135,As Salatah al Jadidah,250,15114
 3136,Umm Ghuwailina,250,26069
-3137,Al Souq (Doha),250,679
+3137,Al Souq,250,679
 3138,Umm Lekhba,250,9871
 3139,Rawdat Al Khail,250,17219
 3140,Katowice,38,301834
@@ -3252,7 +3252,7 @@
 3252,Kongsvinger,190,17885
 3253,Sandnes,190,78624
 3254,Stavanger,190,130426
-3255,Odda (town),190,5022
+3255,Odda,190,5022
 3256,Notodden,190,12359
 3257,Namsos,190,12906
 3258,Ulsteinvik,190,6201
@@ -3262,10 +3262,10 @@
 3262,Setermoen,190,2393
 3263,Orkanger,190,7812
 3264,Brekstad,190,1943
-3265,Hammerfest (town),190,7568
+3265,Hammerfest,190,7568
 3266,Kopervik,190,8215
 3267,Egersund,190,13000
-3268,Alta (town),190,14272
+3268,Alta,190,14272
 3269,Langesund,190,5500
 3270,Lillehammer,190,26639
 3271,Moss,190,30723
@@ -3288,7 +3288,7 @@
 3288,Hamar,190,29931
 3289,Kristiansund,190,24131
 3290,Sortland,190,9983
-3291,Harstad (town),190,20429
+3291,Harstad,190,20429
 3292,Leknes,190,3176
 3293,Mo i Rana,190,18358
 3294,Haugesund,190,36538
@@ -3300,7 +3300,7 @@
 3300,Halden,190,29220
 3301,Kongsberg,190,25090
 3302,Kolvereid,190,1638
-3303,Sauda (town),190,4253
+3303,Sauda,190,4253
 3304,Grimstad,190,12172
 3305,Larvik,190,42637
 3306,Anju,208,240117
@@ -3618,7 +3618,7 @@
 3618,Erdenet,52,83379
 3619,Uliastai,52,15460
 3620,Bayankhongor,52,26252
-3621,Altai (city),52,15492
+3621,Altai,52,15492
 3622,Nalaikh,52,28152
 3623,Nalaikh,52,28152
 3624,Kharkhorin,52,8977
@@ -3634,24 +3634,24 @@
 3634,Dalanzadgad,52,18700
 3635,Choir,52,7998
 3636,Ulaangom,52,22300
-3637,Khovd (city),52,28601
-3638,Choibalsan (city),52,38150
-3639,Khovd (city),52,28601
+3637,Khovd,52,28601
+3638,Choibalsan,52,38150
+3639,Khovd,52,28601
 3640,Sainshand,52,28712
-3641,Tsetserleg (city),52,21091
+3641,Tsetserleg,52,21091
 3642,Erdenet,52,83379
 3643,Arvaikheer,52,21705
-3644,Altai (city),52,15492
+3644,Altai,52,15492
 3645,Dalanzadgad,52,18700
-3646,Choibalsan (city),52,38150
+3646,Choibalsan,52,38150
 3647,Uliastai,52,15460
 3648,Ulaangom,52,22300
-3649,Tsetserleg (city),52,21091
+3649,Tsetserleg,52,21091
 3650,Moneghetti,48,3131
 3651,La Condamine,48,3694
 3652,Larvotto,48,5091
 3653,Saint Michel,48,3807
-3654,Saint Roman (community),48,3102
+3654,Saint Roman,48,3102
 3655,La Condamine,48,3694
 3656,Monaco-Ville,48,975
 3657,La Colle,48,2822
@@ -3939,16 +3939,16 @@
 3939,Demir Kapija,54,3725
 3940,Veles,54,43716
 3941,Kratovo,54,6924
-3942,Demir Hisar (town),54,2593
+3942,Demir Hisar,54,2593
 3943,Gostivar,54,35847
-3944,Resen (town),54,8748
+3944,Resen,54,8748
 3945,Kriva Palanka,54,14558
 3946,Vinica,54,10863
 3947,Makedonski Brod,54,3740
 3948,Debar,54,14561
-3949,Veles (city),54,43716
+3949,Veles,54,43716
 3950,Strumica,54,35311
-3951,Resen (town),54,8748
+3951,Resen,54,8748
 3952,Debar,54,14561
 3953,Struga,54,16559
 3954,Struga,54,16559
@@ -3972,14 +3972,14 @@
 3972,Bitola,54,74550
 3973,Negotino,54,19212
 3974,Sveti Nikole,54,18497
-3975,Demir Hisar (town),54,2593
+3975,Demir Hisar,54,2593
 3976,Sveti Nikole,54,18497
 3977,Demir Kapija,54,3725
 3978,Demir Kapija,54,3725
 3979,Bogdanci,54,6011
 3980,Negotino,54,19212
 3981,Bogdanci,54,6011
-3982,Demir Hisar (town),54,2593
+3982,Demir Hisar,54,2593
 3983,Gevgelija,54,15685
 3984,Berovo,54,7002
 3985,Makedonski Brod,54,3740
@@ -4854,8 +4854,8 @@
 4854,Catanzaro,133,91028
 4855,Busto Arsizio,133,81883
 4856,Foggia,133,153143
-4857,Rho (Italy),133,50558
-4858,Carpi (Modena),133,70644
+4857,Rho,133,50558
+4858,Carpi,133,70644
 4859,La Spezia,133,93983
 4860,Torre del Greco,133,87575
 4861,Scandicci,133,50517
@@ -4982,7 +4982,7 @@
 4982,Bat Yam,187,128498
 4983,Beitar Illit,187,46874
 4984,Kiryat Ono,187,31000
-4985,Ariel (city),187,18391
+4985,Ariel,187,18391
 4986,Bnei Brak,187,178288
 4987,Ramat HaSharon,187,43800
 4988,Yehud,187,25604
@@ -5058,15 +5058,15 @@
 5058,Al Hillah,129,1729666
 5059,Iskandariya,129,200000
 5060,Dahuk,129,296992
-5061,Maluku (province),140,1708190
+5061,Maluku,140,1708190
 5062,Bali,140,4225384
-5063,Maluku (province),140,1708190
-5064,Papua (Indonesian province),140,3486432
-5065,Papua (Indonesian province),140,3486432
-5066,Maluku (province),140,1708190
-5067,West Papua (province),140,877437
-5068,West Papua (province),140,877437
-5069,Maluku (province),140,1708190
+5063,Maluku,140,1708190
+5064,Papua,140,3486432
+5065,Papua,140,3486432
+5066,Maluku,140,1708190
+5067,West Papua,140,877437
+5068,West Papua,140,877437
+5069,Maluku,140,1708190
 5070,Panihati,138,348379
 5071,Shahjahanpur,138,346103
 5072,Ghaziabad,138,2381452
@@ -5160,7 +5160,7 @@
 5160,Davanagere,138,435128
 5161,North Dumdum,138,220032
 5162,Darbhanga,138,306089
-5163,Pondicherry (city),138,654392
+5163,Pondicherry,138,654392
 5164,Tumkur,138,305821
 5165,Purnia,138,310817
 5166,Kamarhati,138,314334
@@ -5201,7 +5201,7 @@
 5201,Saharanpur,138,703345
 5202,Warangal,138,811844
 5203,Vogar,131,1161
-5204,Selfoss (town),131,6512
+5204,Selfoss,131,6512
 5205,Borgarnes,131,1875
 5206,Vestmannaeyjar,131,4264
 5207,Choloma,172,242974
@@ -5354,7 +5354,7 @@
 5354,Kilkis,11,24274
 5355,Rethymno,11,28987
 5356,Alexandria,11,15864
-5357,Sparti (municipality),11,17408
+5357,Sparti,11,17408
 5358,Giannitsa,11,29789
 5359,Tripoli,11,30912
 5360,Florina,11,17907
@@ -5550,10 +5550,10 @@
 5550,Aconibe,21,16543
 5551,Nsang,21,2122
 5552,Nsork,21,4620
-5553,Corisco (Stadt),21,2541
+5553,Corisco,21,2541
 5554,Acurenam,21,2714
 5555,Ayene,21,3482
-5556,Rebola (Equatorial Guinea),21,8259
+5556,Rebola,21,8259
 5557,Baney,21,2365
 5558,Malabo,21,187302
 5559,Bidjabidjan,21,4998
@@ -5615,7 +5615,7 @@
 5615,Silkeborg,215,43158
 5616,Vejle,215,53975
 5617,Randers,215,61163
-5618,Skive (Denmark),215,20505
+5618,Skive,215,20505
 5619,Aalborg,215,132578
 5620,Odense,215,1355
 5621,Roskilde,215,49297
@@ -5637,7 +5637,7 @@
 5637,Pera Orinis,85,1018
 5638,Platanistasa,85,172
 5639,Mammari,85,1052
-5640,Pyrgos (Cyprus),85,1150
+5640,Pyrgos,85,1150
 5641,Famagusta,85,40920
 5642,Kyperounta,85,1497
 5643,Kyrenia,85,20851
@@ -5662,7 +5662,7 @@
 5662,Protaras,85,20230
 5663,Kelokedara,85,227
 5664,Troulloi,85,1175
-5665,Geri (Cyprus),85,8235
+5665,Geri,85,8235
 5666,Kaimakli,85,11564
 5667,Tymvou,85,384
 5668,Limnitis,85,458
@@ -5739,7 +5739,7 @@
 5739,Kapedes,85,523
 5740,Panagia,85,564
 5741,Pano Lefkara,85,1100
-5742,Varosha (Famagusta),85,0
+5742,Varosha,85,0
 5743,Gerakies,85,123
 5744,Lythrangomi,85,228
 5745,Strovolos,85,67904
@@ -5761,7 +5761,7 @@
 5761,La Maya,90,100287
 5762,Sagua La Grande,90,56097
 5763,Havana,90,2106146
-5764,Las Tunas (city),90,171957
+5764,Las Tunas,90,171957
 5765,Banes,90,81274
 5766,Nueva Gerona,90,59049
 5767,Puerto Padre,90,93705
@@ -5792,10 +5792,10 @@
 5792,Pregrada,168,6594
 5793,Zlatar,168,6096
 5794,Delnice,168,6858
-5795,Cres (town),168,2959
+5795,Cres,168,2959
 5796,Novi Vinodolski,168,5113
-5797,Vis (town),168,1934
-5798,Pag (town),168,4350
+5797,Vis,168,1934
+5798,Pag,168,4350
 5799,Solin,168,20080
 5800,Rovinj,168,14294
 5801,Trogir,168,13260
@@ -5838,7 +5838,7 @@
 5838,Glina,168,4680
 5839,Prelog,168,7815
 5840,Opuzen,168,3254
-5841,Krk (town),168,6243
+5841,Krk,168,6243
 5842,Donja Stubica,168,5680
 5843,Petrinja,168,24671
 5844,Koprivnica,168,30854
@@ -5866,7 +5866,7 @@
 5866,Sitionuevo,75,26777
 5867,Luruaco,75,22878
 5868,Zona Bananera,75,56504
-5869,Fresno (Tolima),75,30750
+5869,Fresno,75,30750
 5870,Guadalajara de Buga,75,98203
 5871,Yumbo,75,95151
 5872,Arjona,75,62136
@@ -5895,10 +5895,10 @@
 5895,Anapoima,75,11337
 5896,Yopal,75,118484
 5897,Pradera,75,45360
-5898,La Gloria (Cesar),75,14173
+5898,La Gloria,75,14173
 5899,Boavita,75,6467
 5900,Abrego,75,37221
-5901,Salamina (Magdalena),75,8239
+5901,Salamina,75,8239
 5902,Cicuco,75,10891
 5903,Galapa,75,31596
 5904,Turbaco,75,69099
@@ -5914,7 +5914,7 @@
 5914,Mosquera,75,92025
 5915,Manaure,75,68578
 5916,Carmen de Bolivar,75,67952
-5917,Amalfi (Antioquia),75,19215
+5917,Amalfi,75,19215
 5918,Corozal,75,53291
 5919,Villavicencio,75,384131
 5920,Sabaneta,75,43357
@@ -5943,14 +5943,14 @@
 5943,Valledupar,75,423260
 5944,Sogamoso,75,106006
 5945,Manizales,75,438587
-5946,Bello (Colombia),75,533973
+5946,Bello,75,533973
 5947,Sincelejo,75,255675
 5948,Pasto,75,480000
 5949,Leticia,75,32450
-5950,Rionegro (Antioquia),75,76023
+5950,Rionegro,75,76023
 5951,Pereira,75,472023
 5952,Mocoa,75,36187
-5953,Caldas (Antioquia),75,54461
+5953,Caldas,75,54461
 5954,Santa Marta,75,454860
 5955,Buenaventura,75,362625
 5956,El Cerrito,75,56032
@@ -6336,7 +6336,7 @@
 6336,Jiayuguan City,76,231853
 6337,Xichang,76,481796
 6338,Guiping,76,1700000
-6339,Huangshan (city),76,1470000
+6339,Huangshan,76,1470000
 6340,Lianzhou,76,367859
 6341,Yilan County,76,388319
 6342,Ziyang,76,4870000
@@ -6376,7 +6376,7 @@
 6376,Wuwei,76,1815054
 6377,Langfang,76,4358839
 6378,Jinghong,76,519935
-6379,Lhasa (prefecture-level city),76,559423
+6379,Lhasa,76,559423
 6380,Harbin,76,10635971
 6381,Shenyang,76,8106171
 6382,Pingdingshan,76,4904701
@@ -6980,7 +6980,7 @@
 6980,North Bay,80,53651
 6981,St. Albert,80,61466
 6982,Weyburn,80,10484
-6983,North Vancouver (city),80,48196
+6983,North Vancouver,80,48196
 6984,Camrose,80,17286
 6985,Langford,80,29228
 6986,Owen Sound,80,21688
@@ -7047,7 +7047,7 @@
 7047,Baie-Comeau,80,22113
 7048,Port Moody,80,34000
 7049,Saint-Lin-Laurentides,80,17463
-7050,Valcourt (city),80,2349
+7050,Valcourt,80,2349
 7051,Brownsburg-Chatham,80,7209
 7052,Acton Vale,80,7664
 7053,Marieville,80,10094
@@ -7078,34 +7078,34 @@
 7078,Nkongsamba,77,104050
 7079,Bamenda,77,348766
 7080,Banlung,204,17000
-7081,Koh Kong (city),204,36053
-7082,Prey Veng (city),204,33079
+7081,Koh Kong,204,36053
+7082,Prey Veng,204,33079
 7083,Pursat,204,25650
-7084,Kampong Speu (town),204,54505
-7085,Kampong Cham (city),204,118242
+7084,Kampong Speu,204,54505
+7085,Kampong Cham,204,118242
 7086,Sisophon,204,181396
 7087,Siem Reap,204,174265
 7088,Battambang,204,180853
 7089,Siem Reap,204,174265
 7090,Phnom Penh,204,1501725
 7091,Tboung Khmum,204,214780
-7092,Kampong Thom (city),204,31871
+7092,Kampong Thom,204,31871
 7093,Pursat,204,25650
-7094,Prey Veng (city),204,33079
+7094,Prey Veng,204,33079
 7095,Phnom Tbeng Meanchey,204,24400
 7096,Ta Khmau,204,195898
-7097,Kampong Cham (city),204,118242
-7098,Kampot (town),204,39186
+7097,Kampong Cham,204,118242
+7098,Kampot,204,39186
 7099,Neak Leung,204,7109
 7100,Battambang,204,180853
 7101,Suong,204,29761
 7102,Stung Treng,204,29665
-7103,Kampong Speu (town),204,54505
-7104,Svay Rieng (town),204,23956
-7105,Samraong (town),204,18694
+7103,Kampong Speu,204,54505
+7104,Svay Rieng,204,23956
+7105,Samraong,204,18694
 7106,Senmonorom,204,7500
-7107,Ta Khmao (city),204,195898
-7108,Sihanoukville (city),204,89846
+7107,Ta Khmao,204,195898
+7108,Sihanoukville,204,89846
 7109,Bujumbura,152,497166
 7110,Kayanza,152,26200
 7111,Gitega,152,22989
@@ -7130,12 +7130,12 @@
 7130,Brusartsi,144,1302
 7131,Dobrinishte,144,2749
 7132,Krivodol,144,3497
-7133,Zavet (town),144,3585
+7133,Zavet,144,3585
 7134,Dunavtsi,144,2743
 7135,Zemen,144,1891
 7136,Kresna,144,3987
 7137,Balgarovo,144,2210
-7138,Shipka (town),144,1398
+7138,Shipka,144,1398
 7139,Smyadovo,144,4036
 7140,Dimovo,144,1211
 7141,Chirpan,144,15109
@@ -7161,10 +7161,10 @@
 7161,Primorsko,144,3685
 7162,Melnik,144,385
 7163,Ahtopol,144,1316
-7164,Gotse Delchev (town),144,20522
+7164,Gotse Delchev,144,20522
 7165,Kazanlak,144,47325
 7166,Bankya,144,11667
-7167,Iskar (town),144,3622
+7167,Iskar,144,3622
 7168,Pordim,144,2117
 7169,Batanovtsi,144,2583
 7170,Glodzhevo,144,4366
@@ -7190,7 +7190,7 @@
 7190,Zlataritsa,144,2558
 7191,Valchi Dol,144,3460
 7192,Elhovo,144,10424
-7193,Klisura (Bulgaria),144,1478
+7193,Klisura,144,1478
 7194,Sapareva Banya,144,4425
 7195,Piracicaba,158,391449
 7196,Cascavel,158,296975
@@ -7300,7 +7300,7 @@
 7300,Villamontes,150,39800
 7301,Camiri,150,35712
 7302,Tarija,150,234442
-7303,Santa Cruz Department (Bolivia),150,2655084
+7303,Santa Cruz Department,150,2655084
 7304,El Alto,150,903080
 7305,Patacamaya,150,8414
 7306,Llallagua,150,20065
@@ -7323,10 +7323,10 @@
 7323,Bermejo,150,35411
 7324,Uyuni,150,10460
 7325,Viacha,150,38457
-7326,Santa Cruz Department (Bolivia),150,2655084
+7326,Santa Cruz Department,150,2655084
 7327,La Paz,150,877363
 7328,Tupiza,150,43100
-7329,Warnes (Santa Cruz),150,30964
+7329,Warnes,150,30964
 7330,San Ignacio de Velasco,150,31196
 7331,Rurrenabaque,150,19195
 7332,Sipe Sipe,150,41571
@@ -7356,7 +7356,7 @@
 7356,Aalst,142,82587
 7357,Borgloon,142,10495
 7358,Geel,142,37848
-7359,Namur (city),142,110096
+7359,Namur,142,110096
 7360,Veurne,142,11516
 7361,Poperinge,142,19989
 7362,Lommel,142,33409
@@ -7490,7 +7490,7 @@
 7490,Baku,249,2122300
 7491,Khirdalan,249,37949
 7492,Yevlakh,249,59036
-7493,Shirvan (city),249,81200
+7493,Shirvan,249,81200
 7494,Mingachevir,249,100700
 7495,Lankaran,249,220780
 7496,Shaki,249,63700
@@ -7525,7 +7525,7 @@
 7525,Bruck an der Mur,246,12541
 7526,Telfs,246,14986
 7527,Freistadt,246,7465
-7528,Enns (city),246,11523
+7528,Enns,246,11523
 7529,Bischofshofen,246,10310
 7530,Bludenz,246,13858
 7531,Bludenz,246,13858
@@ -7541,7 +7541,7 @@
 7541,Leonding,246,26395
 7542,Leonding,246,26395
 7543,Bad Fischau-Brunn,246,3085
-7544,Enns (city),246,11523
+7544,Enns,246,11523
 7545,Traiskirchen,246,17634
 7546,Wolfsberg,246,24993
 7547,Trofaiach,246,11190
@@ -7712,7 +7712,7 @@
 7712,Quela,241,80000
 7713,Porto Amboim,241,65000
 7714,Namibe,241,86366
-7715,Cabinda (city),241,377931
+7715,Cabinda,241,377931
 7716,Lobito,241,324050
 7717,Chipindo,241,33244
 7718,Benguela,241,128084
