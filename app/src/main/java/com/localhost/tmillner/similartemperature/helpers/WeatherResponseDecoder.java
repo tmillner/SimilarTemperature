@@ -1,7 +1,5 @@
 package com.localhost.tmillner.similartemperature.helpers;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +22,6 @@ public class WeatherResponseDecoder {
                             ((JSONArray) jsonObject.get("weather")).get(0))
                     .get("main");
         } catch (JSONException e) {
-            Log.w(TAG, "Couldn't get weather " + e.getLocalizedMessage());
             e.printStackTrace();
         }
         return weather;
@@ -38,7 +35,6 @@ public class WeatherResponseDecoder {
             String fWeather = df.format(temp);
             temp = Double.parseDouble(fWeather);
         } catch (JSONException e) {
-            Log.w(TAG, "Couldn't get temperature " + e.getLocalizedMessage());
             e.printStackTrace();
         }
         return temp;
@@ -49,7 +45,6 @@ public class WeatherResponseDecoder {
         try {
             country = ((JSONObject) jsonObject.get("sys")).get("country").toString();
         } catch (JSONException e) {
-            Log.w(TAG, "Couldn't get country " + e.getLocalizedMessage());
             e.printStackTrace();
         }
         return country;

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -64,7 +63,6 @@ public class WeatherRequest {
     public JsonRequest locationDataRequest(final Context context, String city, String country,
                                            Response.Listener listener,
                                            Response.ErrorListener errorListener){
-        Log.i(TAG, "Units are " + temp_units);
         String cityUrl = "data/2.5/weather?q=%s,%s&APPID=" + api_key + "&units=" + temp_units;
         return request(context, cityUrl, city, country, listener, errorListener);
     }
@@ -72,7 +70,6 @@ public class WeatherRequest {
     public JsonRequest zipDataRequest(final Context context, String zip, String country,
                                       Response.Listener listener,
                                       Response.ErrorListener errorListener){
-        Log.i(TAG, "Units are " + temp_units);
         String zipCodeUrl = "data/2.5/weather?zip=%s,%s&APPID=" + api_key + "&units=" + temp_units;
         return request(context, zipCodeUrl, zip, country, listener, errorListener);
     }
@@ -106,7 +103,6 @@ public class WeatherRequest {
                 String weather = WeatherResponseDecoder.getWeather(response);
                 String country = WeatherResponseDecoder.getCountry(response);
                 temperature = round(temperature);
-                Log.i(TAG, "Response for sendLocationDataRequest is " + temperature);
                 Intent intent = new Intent(context, ResultsActivity.class);
                 intent.putExtra(TEMPERATURE_CURRENT, temperature.toString());
                 intent.putExtra(WEATHER_CURRENT, weather);
@@ -118,7 +114,6 @@ public class WeatherRequest {
             @Override
             public void onErrorResponse(VolleyError error) {
                 /* Send back to the main search screen with an error displayed */
-                Log.w(TAG, "Hit an error on weather request");
                 Intent intent = new Intent(context, MainActivity.class);
                 intent.putExtra(ERROR_MESSAGE, error.getMessage());
                 context.startActivity(intent);
@@ -134,7 +129,6 @@ public class WeatherRequest {
                 String weather = WeatherResponseDecoder.getWeather(response);
                 String country = WeatherResponseDecoder.getCountry(response);
                 temperature = round(temperature);
-                Log.i(TAG, "Response for sendLocationDataRequest is " + temperature);
                 Intent intent = new Intent(context, ResultsActivity.class);
                 intent.putExtra(TEMPERATURE_CURRENT, temperature.toString());
                 intent.putExtra(WEATHER_CURRENT, weather);
@@ -146,7 +140,6 @@ public class WeatherRequest {
             @Override
             public void onErrorResponse(VolleyError error) {
                 /* Send back to the main search screen with an error displayed */
-                Log.w(TAG, "Hit an error on weather request");
                 Intent intent = new Intent(context, MainActivity.class);
                 intent.putExtra(ERROR_MESSAGE, error.getMessage());
                 context.startActivity(intent);

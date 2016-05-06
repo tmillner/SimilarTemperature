@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -62,9 +61,7 @@ public class WeatherHelper extends SQLiteOpenHelper {
                 contentValues.put(CountriesContract.COLUMN_COUNTRY_CODE, countryCode );
                 contentValues.put(CountriesContract.COLUMN_COUNTRY_NAME, countryName );
                 db.insert(table, null, contentValues);
-                Log.i(TAG, "Inserted " + countryName);
             }
-            Log.i(TAG, "DONE WITH COUNTRIES");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -101,7 +98,6 @@ public class WeatherHelper extends SQLiteOpenHelper {
                 contentValues.put(WeatherContract.COLUMN_POPULATION, population );
                 db.insert(table, null, contentValues);
             }
-            Log.i(TAG, "DONE WITH CITIES");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

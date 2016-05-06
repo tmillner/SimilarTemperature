@@ -3,7 +3,6 @@ package com.localhost.tmillner.similartemperature.helpers;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.localhost.tmillner.similartemperature.db.CountriesContract;
 import com.localhost.tmillner.similartemperature.db.WeatherHelper;
@@ -31,7 +30,6 @@ public class PlacesResultDecoder {
                 return "";
             }
         }catch (IndexOutOfBoundsException e) {
-            Log.w(TAG, "Couldn't get city " + e.getLocalizedMessage());
             e.printStackTrace();
         }
         return city;
@@ -46,7 +44,6 @@ public class PlacesResultDecoder {
             String[] addressData = locationFullText.split(",");
             country = addressData[addressData.length -1];
         }catch (IndexOutOfBoundsException e) {
-            Log.w(TAG, "Couldn't get country " + e.getLocalizedMessage());
             e.printStackTrace();
         }
         return country;

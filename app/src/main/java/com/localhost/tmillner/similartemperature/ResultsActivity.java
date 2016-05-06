@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -164,7 +163,6 @@ public class ResultsActivity extends AppCompatActivity {
         }
 
         while(cursor.moveToNext()) {
-            Log.d(TAG, "~~~storeMatches - Hit a match");
             JSONObject result = new JSONObject();
             try {
                 result.put("city", cursor.getString(cursor.
@@ -188,7 +186,6 @@ public class ResultsActivity extends AppCompatActivity {
             for (int i = 0; i < placesLength; i++) {
                 final JSONObject result = (JSONObject) ((JSONArray) places.get("results")).get(i);
                 final Boolean isLastResult = (i == (placesLength - 1));
-                Log.d(TAG, "~~~A Result is " + result.toString());
                 WeatherRequest weatherRequest= WeatherRequest.getWeatherRequest(this);
                 weatherRequest.getLocationDataRequest(this,
                         (String) result.get("city"),
@@ -197,15 +194,8 @@ public class ResultsActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(Object response) {
                                         // Add items to the local matchesJSON
-                                        /* Parse response and retrieve the number */
-                                        try {
-                                            Log.d(TAG, "~~~A response is for " + result.get("city") + " is " + response);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
                                         String weather =  WeatherResponseDecoder.getWeather((JSONObject) response);
                                         Double responseDegrees = round(WeatherResponseDecoder.getTemperature((JSONObject) response));
-                                        Log.d(TAG, "Temp is " + responseDegrees);
                                         if (responseDegrees.equals(degrees)) {
                                             JSONObject matchingObject = new JSONObject();
                                             try {
@@ -237,7 +227,7 @@ public class ResultsActivity extends AppCompatActivity {
                                 }, new Response.ErrorListener() {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
-                                        Log.w(TAG, "Something Bad happened! " + error);
+                                        error.printStackTrace();
                                     }
                                 });
             }

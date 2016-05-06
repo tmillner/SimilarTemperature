@@ -1,7 +1,6 @@
 package com.localhost.tmillner.similartemperature;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +55,6 @@ public class AutocompleteAdapter extends ArrayAdapter<String> {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 if (googleApiClient == null || !googleApiClient.isConnected()) {
-                    Log.i(TAG, "google api client is " + googleApiClient.isConnected());
                     Toast.makeText(getContext(), "Not connected", Toast.LENGTH_SHORT).show();
                     return null;
                 }
@@ -77,7 +75,6 @@ public class AutocompleteAdapter extends ArrayAdapter<String> {
                 .setResultCallback(new ResultCallback<AutocompletePredictionBuffer>() {
                     @Override
                     public void onResult(AutocompletePredictionBuffer autocompletePredictions) {
-                        Log.d(TAG, autocompletePredictions.toString());
                         if (autocompletePredictions == null) {
                             return;
                         }

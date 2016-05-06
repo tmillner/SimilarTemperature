@@ -1,17 +1,14 @@
 package com.localhost.tmillner.similartemperature;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -53,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .addApi(Places.PLACE_DETECTION_API)
                 .build();
         googleApiClient.connect();
-        Log.i(TAG, "Is connected " + googleApiClient.isConnected());
 
         AutoCompleteTextView acTextView = (AutoCompleteTextView) findViewById(R.id.userInput);
         acTextViewAdapter = new AutocompleteAdapter(
@@ -76,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         String temperatureMetric = sharedPreferences.getString(
                 SettingsActivity.TEMPERATURE_METRIC, getString(
                         R.string.default_settings_temperature_metric_value));
-        Log.i(TAG, "Metric is " + temperatureMetric);
     }
 
     @Override
@@ -121,20 +116,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     SettingsActivity.DEFAULT_COUNTRY, getString(
                             R.string.default_settings_default_country_value));
         }
-        Log.i(TAG, "Input country is " + country);
         String countryCode = placesResultDecoder.getCountryCode(country);
 
         WeatherRequest weatherRequest = WeatherRequest.getWeatherRequest(this);
         String zipCode = findZipCode(fUserInput);
-        Log.i(TAG, " Country code is " + countryCode + " zip code is " + zipCode);
         if (zipCode != "") {
-            Log.d(TAG, "Zip code query " + zipCode);
             weatherRequest.sendZipDataRequest(this, zipCode, countryCode);
         }
         else {
             String city = placesResultDecoder.getCity(fUserInput);
             if (city != "") {
-                Log.d(TAG, "City query " + city);
                 weatherRequest.sendLocationDataRequest(this, city, countryCode);
             }
             else {
@@ -157,14 +148,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 recentQueries.add(line);
             }
         } catch (java.io.IOException e) {
-            Log.i(TAG, STORAGE_FILE + " does not exist yet! Moving along.");
+            e.printStackTrace();
         }
         return recentQueries;
     }
 
     private void showRecentQueries() {
         List<String> recentQueries = getUserQueries();
-        Log.i(TAG, recentQueries.toString());
         // Although we can reuse the same item layout of results, recently viewed can also
         // utilize a timestamp -- just requires a new layout
         ListView listView = (ListView) findViewById(R.id.recently_viewed);
