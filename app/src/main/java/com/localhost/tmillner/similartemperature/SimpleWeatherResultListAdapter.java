@@ -7,18 +7,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.List;
 
 /**
  * This class also serves as the model/contract for data that will be shown
  */
-public class WeatherResultListAdapter extends ArrayAdapter<JSONObject> {
-    private JSONObject[] items;
+public class SimpleWeatherResultListAdapter extends ArrayAdapter<String> {
+    private List<String> items;
     private LayoutInflater inflater;
     private int resourceId;
 
-    public WeatherResultListAdapter(Context context, int resource, JSONObject[] items) {
+    public SimpleWeatherResultListAdapter(Context context, int resource, List<String> items) {
         super(context, resource, items);
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.items = items;
@@ -27,12 +26,12 @@ public class WeatherResultListAdapter extends ArrayAdapter<JSONObject> {
 
     @Override
     public int getCount() {
-        return this.items.length;
+        return this.items.size();
     }
 
     @Override
-    public JSONObject getItem(int position) {
-        return items[position];
+    public String getItem(int position) {
+        return items.get(position);
     }
 
     @Override
@@ -45,15 +44,25 @@ public class WeatherResultListAdapter extends ArrayAdapter<JSONObject> {
         convertView = inflater.inflate(resourceId, null);
 
         try {
+            String line = items.get(position);
+            String[] columns = line.split(",");
+            String region = columns[0];
+            String country = columns[1];
+            String weather = columns[2];
+            String temp = columns[3];
+
             TextView cityText = (TextView) convertView.findViewById(R.id.result_city);
-            cityText.setText(items[position].getString("city"));
+            cityText.setText(region);
 
             TextView countryText = (TextView) convertView.findViewById(R.id.result_country);
-            countryText.setText(items[position].getString("country"));
+            countryText.setText(country);
 
             TextView weatherText = (TextView) convertView.findViewById(R.id.result_weather);
-            weatherText.setText(items[position].getString("weather"));
-        } catch (JSONException e) {
+            weatherText.setText(weather);
+
+            TextView degreesText = (TextView) convertView.findViewById(R.id.result_degrees);
+            degreesText.setText(temp);
+        } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
         }
 

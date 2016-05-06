@@ -38,6 +38,7 @@ public class ResultsActivity extends AppCompatActivity {
     private Double degrees;
     private String weather;
     private String queryCountry;
+    private String queryRegion;
     private JSONObject places = new JSONObject();
     private JSONObject matches = new JSONObject();
     private ListView listView;
@@ -94,10 +95,10 @@ public class ResultsActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.results);
     }
 
-    private void storeUserQuery(String query, String weather, String country) {
+    private void storeUserQuery(String query, String country, String weather, String degrees) {
         try {
             FileOutputStream outputStream = openFileOutput(MainActivity.STORAGE_FILE, Context.MODE_APPEND);
-            outputStream.write(String.format("%s,%s,%s\n", query, weather, country).getBytes());
+            outputStream.write(String.format("%s,%s,%s,%s\n", query, country, weather, degrees).getBytes());
             outputStream.close();
         } catch (java.io.IOException e) {
             e.printStackTrace();
@@ -110,6 +111,8 @@ public class ResultsActivity extends AppCompatActivity {
         this.degrees = Double.parseDouble(degrees);
         this.weather = intent.getStringExtra(WeatherRequest.WEATHER_CURRENT);
         this.queryCountry = intent.getStringExtra(WeatherRequest.QUERY_COUNTRY);
+        this.queryRegion = intent.getStringExtra(WeatherRequest.QUERY_REGION);
+        storeUserQuery(this.queryRegion, this.queryCountry, this.weather, degrees);
 
         TextView degreesTextView = (TextView) findViewById(R.id.degrees);
         degreesTextView.setText(String.format("°%s  ", degrees));

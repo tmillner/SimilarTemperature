@@ -30,6 +30,7 @@ public class WeatherRequest {
     public final static String WEATHER_CURRENT = "com.localhost.tmillner.similartemperature.weather.WEATHER_CURRENT";
     public final static String TEMPERATURE_CURRENT = "com.localhost.tmillner.similartemperature.weather.TEMPERATURE_CURRENT";
     public final static String QUERY_COUNTRY = "com.localhost.tmillner.similartemperature.weather.QUERY_COUNTRY";
+    public final static String QUERY_REGION = "com.localhost.tmillner.similartemperature.weather.QUERY_REGION";
     private final static String API_DOMAIN = "http://api.openweathermap.org/";
     private String api_key = "";
     private String temp_units;
@@ -97,7 +98,7 @@ public class WeatherRequest {
         return jsonRequest;
     }
 
-    public void sendLocationDataRequest(final Context context, String city, String country){
+    public void sendLocationDataRequest(final Context context, final String city, String country){
         locationDataRequest(context, city, country, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -109,6 +110,7 @@ public class WeatherRequest {
                 Intent intent = new Intent(context, ResultsActivity.class);
                 intent.putExtra(TEMPERATURE_CURRENT, temperature.toString());
                 intent.putExtra(WEATHER_CURRENT, weather);
+                intent.putExtra(QUERY_REGION, city);
                 intent.putExtra(QUERY_COUNTRY, country);
                 context.startActivity(intent);
             }
@@ -124,7 +126,7 @@ public class WeatherRequest {
         });
     }
 
-    public void sendZipDataRequest(final Context context, String zip, String country){
+    public void sendZipDataRequest(final Context context, final String zip, String country){
         zipDataRequest(context, zip, country, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -136,6 +138,7 @@ public class WeatherRequest {
                 Intent intent = new Intent(context, ResultsActivity.class);
                 intent.putExtra(TEMPERATURE_CURRENT, temperature.toString());
                 intent.putExtra(WEATHER_CURRENT, weather);
+                intent.putExtra(QUERY_REGION, zip);
                 intent.putExtra(QUERY_COUNTRY, country);
                 context.startActivity(intent);
             }

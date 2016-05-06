@@ -47,10 +47,7 @@ public class WeatherResponseDecoder {
     public static String getCountry(JSONObject jsonObject) {
         String country = "";
         try {
-            country = (String)
-                    ((JSONObject)
-                            ((JSONArray) jsonObject.get("sys")).get(0))
-                            .get("country");
+            country = ((JSONObject) jsonObject.get("sys")).get("country").toString();
         } catch (JSONException e) {
             Log.w(TAG, "Couldn't get country " + e.getLocalizedMessage());
             e.printStackTrace();

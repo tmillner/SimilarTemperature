@@ -128,14 +128,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         String zipCode = findZipCode(fUserInput);
         Log.i(TAG, " Country code is " + countryCode + " zip code is " + zipCode);
         if (zipCode != "") {
-            storeUserQuery(zipCode);
             Log.d(TAG, "Zip code query " + zipCode);
             weatherRequest.sendZipDataRequest(this, zipCode, countryCode);
         }
         else {
             String city = placesResultDecoder.getCity(fUserInput);
             if (city != "") {
-                storeUserQuery(city);
                 Log.d(TAG, "City query " + city);
                 weatherRequest.sendLocationDataRequest(this, city, countryCode);
             }
@@ -146,16 +144,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         }
         weatherRequest = null;
-    }
-
-    private void storeUserQuery(String query) {
-        try {
-            FileOutputStream outputStream = openFileOutput(STORAGE_FILE, Context.MODE_APPEND);
-            outputStream.write((query + "\n").getBytes());
-            outputStream.close();
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private List<String> getUserQueries() {
@@ -179,10 +167,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Log.i(TAG, recentQueries.toString());
         // Although we can reuse the same item layout of results, recently viewed can also
         // utilize a timestamp -- just requires a new layout
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                R.layout.content_weather_result_list_adapter, R.id.result_city, recentQueries);
         ListView listView = (ListView) findViewById(R.id.recently_viewed);
-        listView.setAdapter(adapter);
+
+        listView.setAdapter(new SimpleWeatherResultListAdapter(
+                this,
+                R.layout.content_weather_result_list_adapter,
+                recentQueries));
 
         if (recentQueries.size() > 0) {
             ImageButton closeButton = (ImageButton) findViewById(R.id.close_button);
