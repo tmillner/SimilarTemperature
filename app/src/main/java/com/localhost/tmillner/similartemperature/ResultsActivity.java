@@ -10,9 +10,11 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -181,9 +183,11 @@ public class ResultsActivity extends AppCompatActivity {
     private void findLocationWeatherMatches() throws JSONException {
         matches.put("results", new JSONArray());
         final Double degrees = this.degrees;
+        final int placesLength = ((JSONArray) places.get("results")).length();
         try {
-            for (int i = 0; i < ((JSONArray) places.get("results")).length(); i++) {
+            for (int i = 0; i < placesLength; i++) {
                 final JSONObject result = (JSONObject) ((JSONArray) places.get("results")).get(i);
+                final Boolean isLastResult = (i == (placesLength - 1));
                 Log.d(TAG, "~~~A Result is " + result.toString());
                 WeatherRequest weatherRequest= WeatherRequest.getWeatherRequest(this);
                 weatherRequest.getLocationDataRequest(this,
@@ -220,6 +224,15 @@ public class ResultsActivity extends AppCompatActivity {
                                                 e.printStackTrace();
                                             }
                                         }
+                                        if (isLastResult) {
+                                            try {
+                                                if (((JSONArray) matches.get("results")).length() == 0) {
+                                                    replaceListView();
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
                                     }
                                 }, new Response.ErrorListener() {
                                     @Override
@@ -231,6 +244,22 @@ public class ResultsActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private final void replaceListView() {
+        View results = findViewById(R.id.results_list);
+        ViewGroup parent = (ViewGroup) results.getParent();
+        int index = parent.indexOfChild(results);
+        parent.removeView(results);
+
+        TextView noResultsTextView = new TextView(this);
+        String[] noResults = getResources().getStringArray(R.array.results_no_results);
+        Double rand = Math.random();
+        int i = (int) Math.round((noResults.length -1) * rand);
+
+        noResultsTextView.setGravity(Gravity.CENTER);
+        noResultsTextView.setText(noResults[i]);
+        parent.addView(noResultsTextView, index);
     }
 
     private Double round(Double temperature) {

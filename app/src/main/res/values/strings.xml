@@ -3,8 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="main_actionable_string">Search Current Weather</string>
     <string name="main_text_input_hint">"City, Country" or "Zip Code"</string>
-    <string name="main_fahrenheit">°F</string>
-    <string name="main_celsius">°C</string>
+    <string name="main_fahrenheit"> °F </string>
+    <string name="main_celsius"> °C </string>
     <string name="main_recently_viewed">Recent Queries</string>
 
     <string name="preferences_first_time_key">"firstTime"</string>
@@ -50,5 +50,11 @@
     <string name="title_settings_min_population_criteria">Minimum population amount of cities to include in search</string>
     <string name="summary_settings_min_population_criteria">The minimum population amount of a city to be included in search</string>
     <string name="default_settings_min_population_criteria_value">200000</string>
+
+    <string-array name="results_no_results">
+        <item>No matches this time.</item>
+        <item>Nada. Search cities are picked randomly, give it another go.</item>
+        <item>No results.</item>
+    </string-array>
 
 </resources>
