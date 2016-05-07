@@ -3,9 +3,11 @@ package com.localhost.tmillner.similartemperature;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +25,6 @@ import com.localhost.tmillner.similartemperature.helpers.WeatherRequest;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,18 +46,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             Preferences.initialize(this);
         }
         setContentView(R.layout.activity_main);
-        googleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
-                .build();
-        googleApiClient.connect();
-
-        AutoCompleteTextView acTextView = (AutoCompleteTextView) findViewById(R.id.userInput);
-        acTextViewAdapter = new AutocompleteAdapter(
-                this, android.R.layout.simple_dropdown_item_1line);
-        acTextViewAdapter.setGoogleApiClient(googleApiClient);
-        acTextView.setAdapter(acTextViewAdapter);
-
+        setGoogleApiClient();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     protected void onResume() {
         super.onResume();
+        setGoogleApiClient();
         showRecentQueries();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String temperatureMetric = sharedPreferences.getString(
@@ -174,6 +165,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
     }
 
+    private void setGoogleApiClient() {
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .build();
+        googleApiClient.connect();
+
+        AutoCompleteTextView acTextView = (AutoCompleteTextView) findViewById(R.id.userInput);
+        acTextViewAdapter = new AutocompleteAdapter(
+                this, android.R.layout.simple_dropdown_item_1line, new Handler(getMainLooper()));
+        acTextViewAdapter.setGoogleApiClient(googleApiClient);
+        acTextView.setAdapter(acTextViewAdapter);
+    }
+
     public void clearRecentQueries(View source) {
         deleteFile(STORAGE_FILE);
             ImageButton closeButton = (ImageButton) findViewById(R.id.close_button);
@@ -194,7 +199,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onConnected(Bundle bundle) {
-
         if (acTextViewAdapter != null) {
             acTextViewAdapter.setGoogleApiClient(googleApiClient);
         }

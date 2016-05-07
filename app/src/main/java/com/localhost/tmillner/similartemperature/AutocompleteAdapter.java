@@ -1,6 +1,8 @@
 package com.localhost.tmillner.similartemperature;
 
+import android.app.ActivityManager;
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +25,11 @@ import java.util.concurrent.TimeUnit;
 public class AutocompleteAdapter extends ArrayAdapter<String> {
     private static final String TAG = "AutoCompleteAdapter";
     private GoogleApiClient googleApiClient;
+    Handler uiHandler = null;
 
-    public AutocompleteAdapter(Context context, int resource) {
+    public AutocompleteAdapter(Context context, int resource, Handler uiHandler) {
         super(context, resource);
+        this.uiHandler = uiHandler;
     }
 
     public void setGoogleApiClient(GoogleApiClient googleApiClient) {
@@ -58,14 +62,27 @@ public class AutocompleteAdapter extends ArrayAdapter<String> {
                     Toast.makeText(getContext(), "Not connected", Toast.LENGTH_SHORT).show();
                     return null;
                 }
-                clear();
-                displayResults("" + constraint);
+                final CharSequence theConstraint = constraint;
+                uiHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        clear();
+                        displayResults("" + theConstraint);
+                    }
+                });
                 return null;
+
+
             }
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                notifyDataSetChanged();
+                uiHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        notifyDataSetChanged();
+                    }
+                });
             }
         };
     }
@@ -80,7 +97,10 @@ public class AutocompleteAdapter extends ArrayAdapter<String> {
                         }
                         if (autocompletePredictions.getStatus().isSuccess()) {
                             for(AutocompletePrediction prediction : autocompletePredictions) {
-                                add("" + prediction.getFullText(null));
+                                String[] chunks = prediction.getFullText(null).toString().split(",");
+                                if (chunks.length == 3 || chunks.length == 2) {
+                                    add("" + prediction.getFullText(null));
+                                }
                             }
                         }
                         autocompletePredictions.release();

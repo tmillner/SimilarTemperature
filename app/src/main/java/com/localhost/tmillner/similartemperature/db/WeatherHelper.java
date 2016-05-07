@@ -68,6 +68,7 @@ public class WeatherHelper extends SQLiteOpenHelper {
             try {
                 inputStream.close();
                 buffer.close();
+                db.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -104,6 +105,7 @@ public class WeatherHelper extends SQLiteOpenHelper {
             try {
                 inputStream.close();
                 buffer.close();
+                db.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

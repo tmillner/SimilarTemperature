@@ -37,7 +37,7 @@ public class PlacesResultDecoder {
 
     public String getCountry(String locationFullText) {
         String country = "";
-        if (!country.matches(",") || country.matches("\\d")) {
+        if (!locationFullText.contains(",") || locationFullText.matches("\\d")) {
             return country;
         }
         try {
