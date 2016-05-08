@@ -1,14 +1,16 @@
 ## SimilarTemperature
 
-This project is a light, simple, to-the-point app to detect places with the same temperature as provided. The focus is on gaining an intuitive understanding of android.
+This project is a light, simple, to-the-point app to detect places with the same temperature as provided. The focus is on gaining an intuitive understanding of android. 
+Be sure to check out the [CHANGELOG](CHANGELOG.md) for release features.
 
-*App Store Link:* 
+*[Download App](app-release.apk)*
+
 
 #### Input
 "zip code" or "city, country".
 
 #### Output
-Locations that match the queried input. Due to API restrictions, results within the limit are randomized so as not to search against the same locations repeatedly.
+Locations that match the queried input and their weather. Due to API restrictions, results within the limit are randomized so as not to search against the same locations repeatedly.
 
 #### Settings
 - Default metric units for temperature
